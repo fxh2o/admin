@@ -525,7 +525,8 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
     }
 
     var button = $('save');
-    setBusy(button,true,state.editingId ? 'UPDATING...' : 'ADDING...');
+    var wasEditing = !!state.editingId;
+    setBusy(button,true,wasEditing ? 'UPDATING...' : 'ADDING...');
 
     try{
       var data = {
@@ -544,7 +545,7 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
       resetEpisodeForm();
       await loadEpisodes();
       await loadStats();
-      setMsg('episodeFormMsg',state.editingId ? 'Episode updated.' : 'Episode added.','ok');
+      setMsg('episodeFormMsg',wasEditing ? 'Episode updated.' : 'Episode added.','ok');
     } catch(err){
       setMsg('episodeFormMsg',err.message || 'Episode save failed.','error');
     } finally {
