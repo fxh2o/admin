@@ -76,7 +76,6 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
   <a id="websiteLink" href="../website/index.html">VIEW WEBSITE</a>
 </header>
 
-
 <section id="pageEditor" class="pageHidden">
   <div class="detailTop">
     <a id="pageBack" class="detailBack" href="admin.html">← BACK TO LIBRARY</a>
@@ -92,10 +91,7 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
             <div id="pageMeta" class="muted"></div>
             <div class="typeRow">
               <label class="label" for="pageType" style="margin:0">TYPE</label>
-              <select id="pageType" class="typeSelect">
-                <option value="series">SERIES</option>
-                <option value="movie">MOVIE</option>
-              </select>
+              <select id="pageType" class="typeSelect"><option value="series">SERIES</option><option value="movie">MOVIE</option></select>
               <button id="pageToggle" type="button" class="btn warn">TOGGLE PUBLISH</button>
               <button id="pageDelete" type="button" class="btn danger">DELETE ANIME</button>
             </div>
@@ -103,44 +99,24 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
         </div>
         <div id="pageMsg" class="msg"></div>
       </section>
-
       <section id="pageSeriesPanel" class="detailCard">
         <div class="title">SEASONS & EPISODES <button id="pageRefreshEpisodes" type="button" class="btn">REFRESH</button></div>
         <div id="pageSeasons" class="pageSeason"></div>
         <div id="pageEpisodeList" class="pageEpisodes"><div class="empty">Loading episodes...</div></div>
       </section>
-
       <section id="pageMoviePanel" class="detailCard pageHidden">
         <div class="title">MOVIE DETAILS <small>VIDEO + DURATION</small></div>
-        <div class="movieFields">
-          <div>
-            <label class="label" for="pageMovieUrl">VIDEO URL</label>
-            <input id="pageMovieUrl" class="input" placeholder="https://...">
-          </div>
-          <div>
-            <label class="label" for="pageMovieDuration">DURATION</label>
-            <input id="pageMovieDuration" class="input" placeholder="e.g. 1:46:28">
-          </div>
-        </div>
-        <div class="tools">
-          <button id="pageSaveMovie" type="button" class="btn primary">SAVE MOVIE</button>
-        </div>
+        <div class="movieFields"><div><label class="label" for="pageMovieUrl">VIDEO URL</label><input id="pageMovieUrl" class="input" placeholder="https://..."></div><div><label class="label" for="pageMovieDuration">DURATION</label><input id="pageMovieDuration" class="input" placeholder="e.g. 1:46:28"></div></div>
+        <div class="tools"><button id="pageSaveMovie" type="button" class="btn primary">SAVE MOVIE</button></div>
         <div id="pageMovieMsg" class="msg"></div>
       </section>
     </div>
-
     <aside>
       <section id="pageEpisodeForm" class="detailCard">
         <div class="title">ADD EPISODE <small id="pageEpisodeTotal">0 total</small></div>
-        <div class="grid">
-          <div><label class="label" for="pageSeason">SEASON</label><input id="pageSeason" class="input" type="number" min="1" value="1"></div>
-          <div><label class="label" for="pageEpisode">EPISODE</label><input id="pageEpisode" class="input" type="number" min="1" placeholder="1"></div>
-        </div>
+        <div class="grid"><div><label class="label" for="pageSeason">SEASON</label><input id="pageSeason" class="input" type="number" min="1" value="1"></div><div><label class="label" for="pageEpisode">EPISODE</label><input id="pageEpisode" class="input" type="number" min="1" placeholder="1"></div></div>
         <input id="pageVideo" class="input" style="margin-top:10px" placeholder="Video URL">
-        <div class="tools">
-          <button id="pageSaveEpisode" type="button" class="btn primary">ADD EPISODE</button>
-          <button id="pageCancelEpisode" type="button" class="btn hidden">CANCEL</button>
-        </div>
+        <div class="tools"><button id="pageSaveEpisode" type="button" class="btn primary">ADD EPISODE</button><button id="pageCancelEpisode" type="button" class="btn hidden">CANCEL</button></div>
         <div id="pageEpisodeMsg" class="msg"></div>
       </section>
     </aside>
@@ -151,122 +127,32 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
 <aside>
 <section class="panel">
   <div class="title">LIBRARY <small id="count">0 items</small></div>
-  <div class="search">
-    <input id="librarySearch" class="input" placeholder="Search library..." autocomplete="off">
-    <button id="refreshLibrary" type="button" class="btn">↻</button>
-  </div>
-  <div id="libraryFilters" class="filterbar">
-    <button type="button" class="filterbtn active" data-filter="all">ALL</button>
-    <button type="button" class="filterbtn" data-filter="series">SERIES</button>
-    <button type="button" class="filterbtn" data-filter="movie">MOVIES</button>
-  </div>
-  <div id="library" class="library"><div class="empty">Loading library...</div></div>
-  <div id="libraryMsg" class="msg"></div>
+  <div class="search"><input id="librarySearch" class="input" placeholder="Search library..." autocomplete="off"><button id="refreshLibrary" type="button" class="btn">↻</button></div>
+  <div id="libraryFilters" class="filterbar"><button type="button" class="filterbtn active" data-filter="all">ALL</button><button type="button" class="filterbtn" data-filter="series">SERIES</button><button type="button" class="filterbtn" data-filter="movie">MOVIES</button></div>
+  <div id="library" class="library"><div class="empty">Loading library...</div></div><div id="libraryMsg" class="msg"></div>
 </section>
-
 <section class="panel">
   <div class="title">ANILIST IMPORT</div>
-  <div class="search">
-    <input id="aniSearch" class="input" placeholder="Search anime..." autocomplete="off">
-    <button id="aniSearchBtn" type="button" class="btn primary">SEARCH</button>
-  </div>
-  <div id="aniMsg" class="msg"></div>
-  <div id="aniResults" class="grid" style="margin-top:10px"></div>
+  <div class="search"><input id="aniSearch" class="input" placeholder="Search anime..." autocomplete="off"><button id="aniSearchBtn" type="button" class="btn primary">SEARCH</button></div>
+  <div id="aniMsg" class="msg"></div><div id="aniResults" class="grid" style="margin-top:10px"></div>
 </section>
 </aside>
-
 <main>
 <section class="panel">
   <div class="title">LIBRARY STATISTICS <small>LIVE DATABASE</small></div>
-  <div class="stats">
-    <div class="stat"><strong id="statSeries">-</strong><small>TOTAL SERIES</small></div>
-    <div class="stat"><strong id="statEpisodes">-</strong><small>EPISODES</small></div>
-    <div class="stat"><strong id="statMovies">-</strong><small>MOVIES</small></div>
-    <div class="stat"><strong id="statSize">-</strong><small>DATABASE</small></div>
-  </div>
-  <button id="refreshStats" type="button" class="btn" style="margin-top:10px">REFRESH STATS</button>
-  <div id="statsMsg" class="msg"></div>
+  <div class="stats"><div class="stat"><strong id="statSeries">-</strong><small>TOTAL SERIES</small></div><div class="stat"><strong id="statEpisodes">-</strong><small>EPISODES</small></div><div class="stat"><strong id="statMovies">-</strong><small>MOVIES</small></div><div class="stat"><strong id="statSize">-</strong><small>DATABASE</small></div></div>
+  <button id="refreshStats" type="button" class="btn" style="margin-top:10px">REFRESH STATS</button><div id="statsMsg" class="msg"></div>
 </section>
-
-<section class="panel">
-  <div class="title">EPISODE LINK PREFIX REPLACER</div>
-  <div class="replace">
-    <input id="episodeOld" class="input" value="https://as-cdn21.top/video/" placeholder="Current prefix">
-    <input id="episodeNew" class="input" placeholder="New prefix">
-  </div>
-  <div class="tools">
-    <button id="checkEpisode" type="button" class="btn">CHECK MATCHING</button>
-    <button id="replaceEpisode" type="button" class="btn warn">REPLACE LINKS</button>
-  </div>
-  <div id="episodeMsg" class="msg"></div>
-</section>
-
-<section class="panel">
-  <div class="title">MOVIE LINK PREFIX REPLACER</div>
-  <div class="replace">
-    <input id="movieOld" class="input" value="https://as-cdn21.top/video/" placeholder="Current prefix">
-    <input id="movieNew" class="input" placeholder="New prefix">
-  </div>
-  <div class="tools">
-    <button id="checkMovie" type="button" class="btn">CHECK MATCHING</button>
-    <button id="replaceMovie" type="button" class="btn warn">REPLACE LINKS</button>
-  </div>
-  <div id="movieMsg" class="msg"></div>
-</section>
-
-<section id="empty" class="panel">
-  <div class="title">SYSTEM READY</div>
-  <p class="muted">Select an anime from the library or import one from AniList.</p>
-</section>
-
+<section class="panel"><div class="title">EPISODE LINK PREFIX REPLACER</div><div class="replace"><input id="episodeOld" class="input" value="https://as-cdn21.top/video/" placeholder="Current prefix"><input id="episodeNew" class="input" placeholder="New prefix"></div><div class="tools"><button id="checkEpisode" type="button" class="btn">CHECK MATCHING</button><button id="replaceEpisode" type="button" class="btn warn">REPLACE LINKS</button></div><div id="episodeMsg" class="msg"></div></section>
+<section class="panel"><div class="title">MOVIE LINK PREFIX REPLACER</div><div class="replace"><input id="movieOld" class="input" value="https://as-cdn21.top/video/" placeholder="Current prefix"><input id="movieNew" class="input" placeholder="New prefix"></div><div class="tools"><button id="checkMovie" type="button" class="btn">CHECK MATCHING</button><button id="replaceMovie" type="button" class="btn warn">REPLACE LINKS</button></div><div id="movieMsg" class="msg"></div></section>
+<section id="empty" class="panel"><div class="title">SYSTEM READY</div><p class="muted">Select an anime from the library or import one from AniList.</p></section>
 <section id="editor" class="hidden">
-  <section class="panel">
-    <div class="hero">
-      <img id="poster" class="poster" alt="">
-      <div>
-        <h1 id="animeTitle"></h1>
-        <div id="animeMeta" class="muted"></div>
-        <div class="tools">
-          <button id="toggle" type="button" class="btn warn">TOGGLE PUBLISH</button>
-          <button id="deleteAnime" type="button" class="btn danger">DELETE ANIME</button>
-        </div>
-      </div>
-    </div>
-    <div id="editorMsg" class="msg"></div>
-  </section>
-
-  <section class="panel">
-    <div class="title">ADD EPISODE <small id="episodeTotal"></small></div>
-    <div class="grid">
-      <div><label class="label" for="season">SEASON</label><input id="season" class="input" type="number" min="1" value="1"></div>
-      <div><label class="label" for="episode">EPISODE</label><input id="episode" class="input" type="number" min="1" placeholder="1"></div>
-    </div>
-    <input id="video" class="input" style="margin-top:10px" placeholder="Video URL">
-    <div class="tools">
-      <button id="save" type="button" class="btn primary">ADD EPISODE</button>
-      <button id="cancel" type="button" class="btn hidden">CANCEL</button>
-    </div>
-    <div id="episodeFormMsg" class="msg"></div>
-  </section>
-
-  <section class="panel">
-    <div class="title">SEASONS & EPISODES <button id="refreshEpisodes" type="button" class="btn">REFRESH</button></div>
-    <div id="seasons" class="season"></div>
-    <div id="episodeList"><div class="empty">Loading episodes...</div></div>
-  </section>
+  <section class="panel"><div class="hero"><img id="poster" class="poster" alt=""><div><h1 id="animeTitle"></h1><div id="animeMeta" class="muted"></div><div class="tools"><button id="toggle" type="button" class="btn warn">TOGGLE PUBLISH</button><button id="deleteAnime" type="button" class="btn danger">DELETE ANIME</button></div></div></div><div id="editorMsg" class="msg"></div></section>
+  <section class="panel"><div class="title">ADD EPISODE <small id="episodeTotal"></small></div><div class="grid"><div><label class="label" for="season">SEASON</label><input id="season" class="input" type="number" min="1" value="1"></div><div><label class="label" for="episode">EPISODE</label><input id="episode" class="input" type="number" min="1" placeholder="1"></div></div><input id="video" class="input" style="margin-top:10px" placeholder="Video URL"><div class="tools"><button id="save" type="button" class="btn primary">ADD EPISODE</button><button id="cancel" type="button" class="btn hidden">CANCEL</button></div><div id="episodeFormMsg" class="msg"></div></section>
+  <section class="panel"><div class="title">SEASONS & EPISODES <button id="refreshEpisodes" type="button" class="btn">REFRESH</button></div><div id="seasons" class="season"></div><div id="episodeList"><div class="empty">Loading episodes...</div></div></section>
 </section>
-
-<section class="panel">
-  <div class="title">DATABASE BACKUP <small>FULL ANIME + EPISODE DATA</small></div>
-  <div class="tools">
-    <button id="download" type="button" class="btn primary">DOWNLOAD BACKUP</button>
-    <label class="drop">RESTORE BACKUP<input id="upload" type="file" accept="application/json" hidden></label>
-  </div>
-  <div id="backupMsg" class="msg">Backup includes all anime and episode rows.</div>
-</section>
-</main>
-</div>
-</div>
+<section class="panel"><div class="title">DATABASE BACKUP <small>FULL ANIME + EPISODE DATA</small></div><div class="tools"><button id="download" type="button" class="btn primary">DOWNLOAD BACKUP</button><label class="drop">RESTORE BACKUP<input id="upload" type="file" accept="application/json" hidden></label></div><div id="backupMsg" class="msg">Backup includes all anime and episode rows.</div></section>
+</main></div></div>
 
 <script>
 (function(){
@@ -275,962 +161,210 @@ h1{margin:0 0 8px;color:var(--green);font-size:30px}
   var config = window.ANIPASTA_ADMIN_CONFIG || {};
   var statusEl = document.getElementById('connectionStatus');
 
-  function showFatal(text){
-    statusEl.textContent = '● CONFIG ERROR';
-    statusEl.className = 'online error';
-    document.getElementById('library').innerHTML = '<div class="empty">' + escapeHtml(text) + '</div>';
-  }
+  function showFatal(text){ statusEl.textContent = '● CONFIG ERROR'; statusEl.className = 'online error'; document.getElementById('library').innerHTML = '<div class="empty">' + escapeHtml(text) + '</div>'; }
+  if (!config.url || !config.key){ showFatal('Configure admin-config.js first.'); return; }
+  if (!window.supabase || !window.supabase.createClient){ showFatal('Supabase library failed to load.'); return; }
 
-  if (!config.url || !config.key){
-    showFatal('Configure admin-config.js first.');
-    return;
-  }
-
-  if (!window.supabase || !window.supabase.createClient){
-    showFatal('Supabase library failed to load.');
-    return;
-  }
-
-  var db = window.supabase.createClient(config.url, config.key, {
-    auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false }
-  });
-
-  var state = {
-    library: [],
-    current: null,
-    episodes: [],
-    season: null,
-    editingId: null,
-    aniResults: [],
-    busy: false,
-    libraryFilter: 'all',
-    pageMode: false
-  };
+  var db = window.supabase.createClient(config.url, config.key, { auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false} });
+  var state = {library:[],current:null,episodes:[],season:null,editingId:null,aniResults:[],busy:false,libraryFilter:'all',pageMode:false};
 
   function $(id){ return document.getElementById(id); }
+  function escapeHtml(value){ return String(value == null ? '' : value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function setMsg(id,text,type){ var el=$(id); if(!el)return; el.textContent=text||''; el.className='msg '+(type||''); }
+  function setBusy(button,busy,label){ if(!button)return; button.disabled=!!busy; if(busy){button.dataset.originalLabel=button.textContent;button.textContent=label||'WORKING...';}else if(button.dataset.originalLabel){button.textContent=button.dataset.originalLabel;delete button.dataset.originalLabel;} }
+  function requireCurrent(){ if(!state.current){setMsg('editorMsg','Select an anime first.','error');return false;} return true; }
 
-  function escapeHtml(value){
-    return String(value == null ? '' : value)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&#39;');
-  }
-
-  function setMsg(id,text,type){
-    var el = $(id);
-    if (!el) return;
-    el.textContent = text || '';
-    el.className = 'msg ' + (type || '');
-  }
-
-  function setBusy(button,busy,label){
-    if (!button) return;
-    button.disabled = !!busy;
-    if (busy){
-      button.dataset.originalLabel = button.textContent;
-      button.textContent = label || 'WORKING...';
-    } else if (button.dataset.originalLabel){
-      button.textContent = button.dataset.originalLabel;
-      delete button.dataset.originalLabel;
+  async function withRetry(task,label){
+    var lastError;
+    for(var attempt=1;attempt<=3;attempt++){
+      try{ var result=await task(); if(result && result.error) throw result.error; return result; }
+      catch(err){
+        lastError=err;
+        if(attempt>=3)throw err;
+        var text=String(err && err.message || err).toLowerCase();
+        if(!/network|fetch|timeout|gateway|temporar|connection|502|503|504/.test(text))throw err;
+        await new Promise(function(resolve){setTimeout(resolve,500*attempt);});
+      }
     }
+    throw lastError || new Error((label||'Request')+' failed');
   }
 
-  function requireCurrent(){
-    if (!state.current){
-      setMsg('editorMsg','Select an anime first.','error');
-      return false;
+  async function fetchPaged(factory,pageSize){
+    pageSize=pageSize||500;
+    var rows=[];
+    for(var from=0;;from+=pageSize){
+      var to=from+pageSize-1;
+      var r=await withRetry(function(){return factory().range(from,to);},'data page');
+      var chunk=r.data||[];
+      rows=rows.concat(chunk);
+      if(chunk.length<pageSize)break;
     }
-    return true;
+    return rows;
   }
 
   async function loadLibrary(){
-    setMsg('libraryMsg','Loading...');
-    var r = await db.from('anime')
-      .select('id,title,poster_url,is_published,content_type,anilist_id,movie_url')
-      .order('title',{ascending:true});
-
-    if (r.error) throw r.error;
-    state.library = r.data || [];
-    renderLibrary();
-    setMsg('libraryMsg',state.library.length + ' anime loaded.','ok');
+    setMsg('libraryMsg','Loading library...');
+    try{
+      state.library=await fetchPaged(function(){return db.from('anime').select('id,title,poster_url,is_published,content_type,anilist_id,movie_url').order('title',{ascending:true});},500);
+      renderLibrary();
+      setMsg('libraryMsg',state.library.length+' anime loaded.','ok');
+      return state.library;
+    }catch(err){
+      setMsg('libraryMsg',err.message||'Failed to load library.','error');
+      throw err;
+    }
   }
 
   function renderLibrary(){
-    var q = $('librarySearch').value.trim().toLowerCase();
-    var list = state.library.filter(function(a){
-      var type = String(a.content_type || 'series').toLowerCase() === 'movie' ? 'movie' : 'series';
-      var matchesFilter = state.libraryFilter === 'all' || type === state.libraryFilter;
-      var matchesSearch = !q || String(a.title || '').toLowerCase().indexOf(q) !== -1;
-      return matchesFilter && matchesSearch;
-    });
-
-    $('count').textContent = state.library.length + ' items';
-
-    if (!list.length){
-      $('library').innerHTML = '<div class="empty">' + (q ? 'No matching anime.' : 'Library is empty.') + '</div>';
-      return;
-    }
-
-    $('library').innerHTML = list.map(function(a){
-      var active = state.current && String(state.current.id) === String(a.id) ? ' active' : '';
-      return '<button type="button" class="item' + active + '" data-id="' + escapeHtml(a.id) + '">' +
-        '<img src="' + escapeHtml(a.poster_url || '') + '" alt="" loading="lazy">' +
-        '<span><strong>' + escapeHtml(a.title) + '</strong>' +
-        '<small>' + (a.is_published ? 'PUBLISHED' : 'HIDDEN') + ' · ' + escapeHtml(a.content_type || 'series') + '</small></span>' +
-        '</button>';
-    }).join('');
+    var q=$('librarySearch').value.trim().toLowerCase();
+    var list=state.library.filter(function(a){var type=String(a.content_type||'series').toLowerCase()==='movie'?'movie':'series';return (state.libraryFilter==='all'||type===state.libraryFilter)&&(!q||String(a.title||'').toLowerCase().indexOf(q)!==-1);});
+    $('count').textContent=state.library.length+' items';
+    $('library').innerHTML=list.length?list.map(function(a){var active=state.current&&String(state.current.id)===String(a.id)?' active':'';return '<button type="button" class="item'+active+'" data-id="'+escapeHtml(a.id)+'"><img src="'+escapeHtml(a.poster_url||'')+'" alt="" loading="lazy"><span><strong>'+escapeHtml(a.title)+'</strong><small>'+(a.is_published?'PUBLISHED':'HIDDEN')+' · '+escapeHtml(a.content_type||'series')+'</small></span></button>';}).join(''):'<div class="empty">'+(q?'No matching anime.':'Library is empty.')+'</div>';
   }
 
   async function openAnime(id){
     setMsg('editorMsg','Loading anime...');
-    var r = await db.from('anime').select('*').eq('id',id).single();
-    if (r.error) throw r.error;
-
-    state.current = r.data;
-    state.editingId = null;
-    $('empty').classList.add('hidden');
-    $('editor').classList.remove('hidden');
-    $('animeTitle').textContent = state.current.title || 'Untitled';
-    $('poster').src = state.current.poster_url || '';
-    $('poster').alt = state.current.title || '';
-    $('animeMeta').textContent =
-      (state.current.is_published ? 'PUBLISHED' : 'HIDDEN') +
-      ' · ' + (state.current.content_type || 'series') +
-      ' · ID ' + state.current.id;
-
-    renderLibrary();
-    await loadEpisodes();
-    resetEpisodeForm();
-    setMsg('editorMsg','Anime loaded.','ok');
+    try{
+      var r=await withRetry(function(){return db.from('anime').select('*').eq('id',id).single();},'anime load');
+      state.current=r.data; state.editingId=null;
+      $('empty').classList.add('hidden'); $('editor').classList.remove('hidden');
+      $('animeTitle').textContent=state.current.title||'Untitled'; $('poster').src=state.current.poster_url||''; $('poster').alt=state.current.title||'';
+      $('animeMeta').textContent=(state.current.is_published?'PUBLISHED':'HIDDEN')+' · '+(state.current.content_type||'series')+' · ID '+state.current.id;
+      renderLibrary(); await loadEpisodes(); resetEpisodeForm(); setMsg('editorMsg','Anime loaded.','ok');
+    }catch(err){setMsg('editorMsg',err.message||'Failed to load anime.','error'); throw err;}
   }
 
   async function loadEpisodes(){
-    if (!requireCurrent()) return;
+    if(!requireCurrent())return;
     setMsg('episodeFormMsg','Loading episodes...');
-
-    var r = await db.from('episodes')
-      .select('*')
-      .eq('anime_id',state.current.id)
-      .order('season_number',{ascending:true})
-      .order('episode_number',{ascending:true});
-
-    if (r.error) throw r.error;
-
-    state.episodes = r.data || [];
-    var seasons = [];
-    state.episodes.forEach(function(e){
-      var s = Number(e.season_number) || 1;
-      if (seasons.indexOf(s) === -1) seasons.push(s);
-    });
-
-    state.season = state.season && seasons.indexOf(state.season) !== -1
-      ? state.season
-      : (seasons[0] || null);
-
-    $('episodeTotal').textContent = state.episodes.length + ' total';
-
-    $('seasons').innerHTML = seasons.length
-      ? seasons.map(function(s){
-          return '<button type="button" class="' + (s === state.season ? 'active' : '') +
-            '" data-season="' + s + '">SEASON ' + s + '</button>';
-        }).join('')
-      : '';
-
-    var list = state.episodes.filter(function(e){
-      return state.season === null || Number(e.season_number || 1) === state.season;
-    });
-
-    $('episodeList').innerHTML = list.length
-      ? list.map(function(e){
-          return '<article class="episode">' +
-            '<b>S' + (e.season_number || 1) + ' · EP ' + e.episode_number + '</b>' +
-            '<span class="url" title="' + escapeHtml(e.video_url || '') + '">' + escapeHtml(e.video_url || 'No video URL') + '</span>' +
-            '<div>' +
-            '<button type="button" class="btn" data-edit="' + escapeHtml(e.id) + '">EDIT</button> ' +
-            '<button type="button" class="btn danger" data-delete="' + escapeHtml(e.id) + '">DELETE</button>' +
-            '</div></article>';
-        }).join('')
-      : '<div class="empty">No episodes in this season.</div>';
-
+    state.episodes=await fetchPaged(function(){return db.from('episodes').select('*').eq('anime_id',state.current.id).order('season_number',{ascending:true}).order('episode_number',{ascending:true});},500);
+    var seasons=[]; state.episodes.forEach(function(e){var s=Number(e.season_number)||1;if(seasons.indexOf(s)===-1)seasons.push(s);});
+    state.season=state.season!==null&&seasons.indexOf(state.season)!==-1?state.season:(seasons[0]||null);
+    $('episodeTotal').textContent=state.episodes.length+' total';
+    $('seasons').innerHTML=seasons.length?seasons.map(function(s){return '<button type="button" class="'+(s===state.season?'active':'')+'" data-season="'+s+'">SEASON '+s+'</button>';}).join(''):'';
+    var list=state.episodes.filter(function(e){return state.season===null||Number(e.season_number||1)===state.season;});
+    $('episodeList').innerHTML=list.length?list.map(function(e){return '<article class="episode"><b>S'+(e.season_number||1)+' · EP '+e.episode_number+'</b><span class="url" title="'+escapeHtml(e.video_url||'')+'">'+escapeHtml(e.video_url||'No video URL')+'</span><div><button type="button" class="btn" data-edit="'+escapeHtml(e.id)+'">EDIT</button> <button type="button" class="btn danger" data-delete="'+escapeHtml(e.id)+'">DELETE</button></div></article>';}).join(''):'<div class="empty">No episodes in this season.</div>';
     setMsg('episodeFormMsg','');
   }
 
   async function loadStats(){
     setMsg('statsMsg','Refreshing...');
-
-    var results = await Promise.all([
-      db.from('anime').select('id',{count:'exact',head:true}).neq('content_type','movie'),
-      db.from('episodes').select('id',{count:'exact',head:true}),
-      db.from('anime').select('id',{count:'exact',head:true}).eq('content_type','movie'),
-      db.rpc('get_database_usage')
-    ]);
-
-    var series = results[0], episodes = results[1], movies = results[2], usage = results[3];
-
-    if (series.error) throw series.error;
-    if (episodes.error) throw episodes.error;
-    if (movies.error) throw movies.error;
-
-    $('statSeries').textContent = String(series.count || 0);
-    $('statEpisodes').textContent = String(episodes.count || 0);
-    $('statMovies').textContent = String(movies.count || 0);
-
-    if (usage.error){
-      $('statSize').textContent = 'N/A';
-      setMsg('statsMsg','Counts loaded; database usage RPC failed: ' + usage.error.message,'error');
-      return;
-    }
-
-    var row = (usage.data && usage.data[0]) || {};
-    if (row.used_bytes != null){
-      var mb = Number(row.used_bytes) / 1048576;
-      $('statSize').textContent = mb.toFixed(1) + ' MB';
-      setMsg('statsMsg','Database used ' + mb.toFixed(1) + ' MB','ok');
-    } else {
-      $('statSize').textContent = 'N/A';
-      setMsg('statsMsg','Database usage unavailable.','error');
-    }
+    try{
+      var results=await Promise.all([
+        withRetry(function(){return db.from('anime').select('id',{count:'exact',head:true}).neq('content_type','movie');},'series count'),
+        withRetry(function(){return db.from('episodes').select('id',{count:'exact',head:true});},'episode count'),
+        withRetry(function(){return db.from('anime').select('id',{count:'exact',head:true}).eq('content_type','movie');},'movie count'),
+        withRetry(function(){return db.rpc('get_database_usage');},'database usage')
+      ]);
+      var series=results[0],episodes=results[1],movies=results[2],usage=results[3];
+      $('statSeries').textContent=String(series.count||0); $('statEpisodes').textContent=String(episodes.count||0); $('statMovies').textContent=String(movies.count||0);
+      if(usage.error){$('statSize').textContent='N/A';setMsg('statsMsg','Counts loaded; database usage RPC failed: '+usage.error.message,'error');return;}
+      var row=(usage.data&&usage.data[0])||{};
+      if(row.used_bytes!=null){var mb=Number(row.used_bytes)/1048576;$('statSize').textContent=mb.toFixed(1)+' MB';setMsg('statsMsg','Database used '+mb.toFixed(1)+' MB','ok');}
+      else{$('statSize').textContent='N/A';setMsg('statsMsg','Database usage unavailable.','error');}
+    }catch(err){setMsg('statsMsg',err.message||'Failed to load statistics.','error');throw err;}
   }
 
   async function searchAni(){
-    var q = $('aniSearch').value.trim();
-    if (!q){
-      setMsg('aniMsg','Enter an anime name.','error');
-      return;
-    }
-
-    setMsg('aniMsg','Searching AniList...');
-    var button = $('aniSearchBtn');
-    setBusy(button,true,'SEARCHING...');
-
-    try{
-      var response = await fetch('https://graphql.anilist.co',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          query:'query($q:String!){Page(perPage:24){media(search:$q,type:ANIME){id title{english romaji native} coverImage{large} format episodes}}}',
-          variables:{q:q}
-        })
-      });
-
-      if (!response.ok) throw new Error('AniList HTTP ' + response.status);
-      var json = await response.json();
-      if (json.errors && json.errors.length) throw new Error(json.errors[0].message || 'AniList query failed');
-
-      state.aniResults = (json.data && json.data.Page && json.data.Page.media) || [];
-      renderAniResults();
-      setMsg('aniMsg',state.aniResults.length + ' results.','ok');
-    } catch(err){
-      setMsg('aniMsg',err.message || 'AniList search failed.','error');
-    } finally {
-      setBusy(button,false);
-    }
+    var q=$('aniSearch').value.trim(); if(!q){setMsg('aniMsg','Enter an anime name.','error');return;}
+    setMsg('aniMsg','Searching AniList...'); var button=$('aniSearchBtn');setBusy(button,true,'SEARCHING...');
+    try{var response=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:'query($q:String!){Page(perPage:24){media(search:$q,type:ANIME){id title{english romaji native} coverImage{large} format episodes}}}',variables:{q:q}}});if(!response.ok)throw new Error('AniList HTTP '+response.status);var json=await response.json();if(json.errors&&json.errors.length)throw new Error(json.errors[0].message||'AniList query failed');state.aniResults=(json.data&&json.data.Page&&json.data.Page.media)||[];renderAniResults();setMsg('aniMsg',state.aniResults.length+' results.','ok');}
+    catch(err){setMsg('aniMsg',err.message||'AniList search failed.','error');}finally{setBusy(button,false);}
   }
 
-  function renderAniResults(){
-    $('aniResults').innerHTML = state.aniResults.length
-      ? state.aniResults.map(function(a,i){
-          var title = (a.title && (a.title.english || a.title.romaji || a.title.native)) || 'Untitled';
-          return '<button type="button" class="item" data-ani-index="' + i + '">' +
-            '<img src="' + escapeHtml((a.coverImage && a.coverImage.large) || '') + '" alt="" loading="lazy">' +
-            '<span><strong>' + escapeHtml(title) + '</strong><small>' +
-            escapeHtml(a.format || '') + (a.episodes ? ' · ' + a.episodes + ' eps' : '') +
-            '</small></span></button>';
-        }).join('')
-      : '';
-  }
+  function renderAniResults(){ $('aniResults').innerHTML=state.aniResults.length?state.aniResults.map(function(a,i){var title=(a.title&&(a.title.english||a.title.romaji||a.title.native))||'Untitled';return '<button type="button" class="item" data-ani-index="'+i+'"><img src="'+escapeHtml((a.coverImage&&a.coverImage.large)||'')+'" alt="" loading="lazy"><span><strong>'+escapeHtml(title)+'</strong><small>'+escapeHtml(a.format||'')+(a.episodes?' · '+a.episodes+' eps':'')+'</small></span></button>';}).join(''):''; }
 
   async function importAni(index){
-    var a = state.aniResults[index];
-    if (!a) return;
-
-    var title = (a.title && (a.title.english || a.title.romaji || a.title.native)) || 'Untitled';
-    var existing = await db.from('anime').select('id,title').eq('anilist_id',a.id).maybeSingle();
-
-    if (existing.error) throw existing.error;
-    if (existing.data){
-      await openAnime(existing.data.id);
-      setMsg('aniMsg','Already in library. Opened existing entry.','ok');
-      return;
-    }
-
-    var payload = {
-      anilist_id:a.id,
-      title:title,
-      poster_url:(a.coverImage && a.coverImage.large) || null,
-      is_published:true,
-      content_type:'series'
-    };
-
-    var inserted = await db.from('anime').insert(payload).select('id').single();
-    if (inserted.error) throw inserted.error;
-
-    await loadLibrary();
-    await openAnime(inserted.data.id);
-    setMsg('aniMsg','Imported "' + title + '".','ok');
+    var a=state.aniResults[index];if(!a)return;var title=(a.title&&(a.title.english||a.title.romaji||a.title.native))||'Untitled';
+    var existing=await withRetry(function(){return db.from('anime').select('id,title').eq('anilist_id',a.id).maybeSingle();},'AniList duplicate check');
+    if(existing.data){await openAnime(existing.data.id);setMsg('aniMsg','Already in library. Opened existing entry.','ok');return;}
+    var payload={anilist_id:a.id,title:title,poster_url:(a.coverImage&&a.coverImage.large)||null,is_published:true,content_type:'series'};
+    var inserted=await withRetry(function(){return db.from('anime').insert(payload).select('id').single();},'anime import');
+    await loadLibrary();await openAnime(inserted.data.id);setMsg('aniMsg','Imported "'+title+'".','ok');
   }
 
-  function resetEpisodeForm(){
-    state.editingId = null;
-    $('season').value = '1';
-    $('episode').value = '';
-    $('video').value = '';
-    $('save').textContent = 'ADD EPISODE';
-    $('cancel').classList.add('hidden');
-    setMsg('episodeFormMsg','');
-  }
+  function resetEpisodeForm(){state.editingId=null;$('season').value='1';$('episode').value='';$('video').value='';$('save').textContent='ADD EPISODE';$('cancel').classList.add('hidden');setMsg('episodeFormMsg','');}
 
   async function saveEpisode(){
-    if (!requireCurrent()) return;
-
-    var seasonNumber = Number($('season').value);
-    var episodeNumber = Number($('episode').value);
-    var videoUrl = $('video').value.trim();
-
-    if (!Number.isInteger(seasonNumber) || seasonNumber < 1){
-      setMsg('episodeFormMsg','Season must be 1 or greater.','error');
-      return;
-    }
-
-    if (!Number.isInteger(episodeNumber) || episodeNumber < 1){
-      setMsg('episodeFormMsg','Episode must be 1 or greater.','error');
-      return;
-    }
-
-    if (!videoUrl){
-      setMsg('episodeFormMsg','Video URL is required.','error');
-      return;
-    }
-
-    var button = $('save');
-    var wasEditing = !!state.editingId;
-    setBusy(button,true,wasEditing ? 'UPDATING...' : 'ADDING...');
-
-    try{
-      var data = {
-        anime_id:state.current.id,
-        season_number:seasonNumber,
-        episode_number:episodeNumber,
-        title:'Episode ' + episodeNumber,
-        video_url:videoUrl
-      };
-
-      var r = state.editingId
-        ? await db.from('episodes').update(data).eq('id',state.editingId).select('id').maybeSingle()
-        : await db.from('episodes').insert(data).select('id').single();
-
-      if (r.error) throw r.error;
-      resetEpisodeForm();
-      await loadEpisodes();
-      await loadStats();
-      setMsg('episodeFormMsg',wasEditing ? 'Episode updated.' : 'Episode added.','ok');
-    } catch(err){
-      setMsg('episodeFormMsg',err.message || 'Episode save failed.','error');
-    } finally {
-      setBusy(button,false);
-    }
+    if(!requireCurrent())return;var seasonNumber=Number($('season').value),episodeNumber=Number($('episode').value),videoUrl=$('video').value.trim();
+    if(!Number.isInteger(seasonNumber)||seasonNumber<1){setMsg('episodeFormMsg','Season must be 1 or greater.','error');return;}
+    if(!Number.isInteger(episodeNumber)||episodeNumber<1){setMsg('episodeFormMsg','Episode must be 1 or greater.','error');return;}
+    if(!videoUrl){setMsg('episodeFormMsg','Video URL is required.','error');return;}
+    var button=$('save'),wasEditing=!!state.editingId;setBusy(button,true,wasEditing?'UPDATING...':'ADDING...');
+    try{var data={anime_id:state.current.id,season_number:seasonNumber,episode_number:episodeNumber,title:'Episode '+episodeNumber,video_url:videoUrl};var r=wasEditing?await withRetry(function(){return db.from('episodes').update(data).eq('id',state.editingId).select('id').maybeSingle();},'episode update'):await withRetry(function(){return db.from('episodes').insert(data).select('id').single();},'episode insert');if(!r)throw new Error('Episode save failed');resetEpisodeForm();await loadEpisodes();await loadStats();setMsg('episodeFormMsg',wasEditing?'Episode updated.':'Episode added.','ok');}
+    catch(err){setMsg('episodeFormMsg',err.message||'Episode save failed.','error');}finally{setBusy(button,false);}
   }
 
-  async function editEpisode(id){
-    var x = state.episodes.find(function(e){ return String(e.id) === String(id); });
-    if (!x){
-      setMsg('episodeFormMsg','Episode not found. Refresh the list.','error');
-      return;
-    }
-    state.editingId = x.id;
-    $('season').value = x.season_number || 1;
-    $('episode').value = x.episode_number || '';
-    $('video').value = x.video_url || '';
-    $('save').textContent = 'UPDATE EPISODE';
-    $('cancel').classList.remove('hidden');
-    window.scrollTo({top:0,behavior:'smooth'});
-    setMsg('episodeFormMsg','Editing episode S' + (x.season_number || 1) + ' EP ' + x.episode_number + '.','ok');
-  }
+  async function editEpisode(id){var x=state.episodes.find(function(e){return String(e.id)===String(id);});if(!x){setMsg('episodeFormMsg','Episode not found. Refresh the list.','error');return;}state.editingId=x.id;$('season').value=x.season_number||1;$('episode').value=x.episode_number||'';$('video').value=x.video_url||'';$('save').textContent='UPDATE EPISODE';$('cancel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});setMsg('episodeFormMsg','Editing episode S'+(x.season_number||1)+' EP '+x.episode_number+'.','ok');}
+  async function deleteEpisode(id){var x=state.episodes.find(function(e){return String(e.id)===String(id);});if(!x)return;if(!confirm('Delete S'+(x.season_number||1)+' EP '+x.episode_number+'?'))return;try{await withRetry(function(){return db.from('episodes').delete().eq('id',id);},'episode delete');await loadEpisodes();await loadStats();setMsg('episodeFormMsg','Episode deleted.','ok');}catch(err){setMsg('episodeFormMsg',err.message||'Delete failed.','error');}}
 
-  async function deleteEpisode(id){
-    var x = state.episodes.find(function(e){ return String(e.id) === String(id); });
-    if (!x) return;
-    if (!confirm('Delete S' + (x.season_number || 1) + ' EP ' + x.episode_number + '?')) return;
+  async function togglePublish(){if(!requireCurrent())return;var button=$('toggle');setBusy(button,true,'SAVING...');try{var next=!state.current.is_published;await withRetry(function(){return db.from('anime').update({is_published:next}).eq('id',state.current.id).select('id').maybeSingle();},'publish update');state.current.is_published=next;$('animeMeta').textContent=(next?'PUBLISHED':'HIDDEN')+' · '+(state.current.content_type||'series')+' · ID '+state.current.id;await loadLibrary();setMsg('editorMsg',next?'Anime published.':'Anime hidden.','ok');}catch(err){setMsg('editorMsg',err.message||'Publish state update failed.','error');}finally{setBusy(button,false);}}
+  async function deleteAnime(){if(!requireCurrent())return;if(!confirm('Delete "'+state.current.title+'" and ALL of its episodes?'))return;try{await withRetry(function(){return db.from('episodes').delete().eq('anime_id',state.current.id);},'episode bulk delete');await withRetry(function(){return db.from('anime').delete().eq('id',state.current.id);},'anime delete');state.current=null;state.episodes=[];$('editor').classList.add('hidden');$('empty').classList.remove('hidden');await loadLibrary();await loadStats();setMsg('libraryMsg','Anime deleted.','ok');}catch(err){setMsg('editorMsg',err.message||'Anime delete failed.','error');}}
 
-    try{
-      var r = await db.from('episodes').delete().eq('id',id);
-      if (r.error) throw r.error;
-      await loadEpisodes();
-      await loadStats();
-      setMsg('episodeFormMsg','Episode deleted.','ok');
-    } catch(err){
-      setMsg('episodeFormMsg',err.message || 'Delete failed.','error');
-    }
-  }
-
-  async function togglePublish(){
-    if (!requireCurrent()) return;
-
-    var button = $('toggle');
-    setBusy(button,true,'SAVING...');
-
-    try{
-      var next = !state.current.is_published;
-      var r = await db.from('anime').update({is_published:next}).eq('id',state.current.id).select('id').maybeSingle();
-      if (r.error) throw r.error;
-      state.current.is_published = next;
-      $('animeMeta').textContent =
-        (next ? 'PUBLISHED' : 'HIDDEN') +
-        ' · ' + (state.current.content_type || 'series') +
-        ' · ID ' + state.current.id;
-      await loadLibrary();
-      setMsg('editorMsg',next ? 'Anime published.' : 'Anime hidden.','ok');
-    } catch(err){
-      setMsg('editorMsg',err.message || 'Publish state update failed.','error');
-    } finally {
-      setBusy(button,false);
-    }
-  }
-
-  async function deleteAnime(){
-    if (!requireCurrent()) return;
-    if (!confirm('Delete "' + state.current.title + '" and ALL of its episodes?')) return;
-
-    try{
-      var episodeDelete = await db.from('episodes').delete().eq('anime_id',state.current.id);
-      if (episodeDelete.error) throw episodeDelete.error;
-
-      var animeDelete = await db.from('anime').delete().eq('id',state.current.id);
-      if (animeDelete.error) throw animeDelete.error;
-
-      state.current = null;
-      state.episodes = [];
-      $('editor').classList.add('hidden');
-      $('empty').classList.remove('hidden');
-      await loadLibrary();
-      await loadStats();
-      setMsg('libraryMsg','Anime deleted.','ok');
-    } catch(err){
-      setMsg('editorMsg',err.message || 'Anime delete failed.','error');
-    }
-  }
-
-  async function checkPrefix(table,column,inputId,msgId){
-    var prefix = $(inputId).value.trim();
-    if (!prefix){
-      setMsg(msgId,'Enter a prefix.','error');
-      return;
-    }
-
-    setMsg(msgId,'Checking...');
-    try{
-      var r = await db.from(table).select('id',{count:'exact',head:true}).like(column,prefix + '%');
-      if (r.error) throw r.error;
-      setMsg(msgId,String(r.count || 0) + ' matching records.','ok');
-    } catch(err){
-      setMsg(msgId,err.message || 'Check failed.','error');
-    }
-  }
-
-  async function replacePrefix(rpcName,oldId,newId,msgId){
-    var oldPrefix = $(oldId).value.trim();
-    var newPrefix = $(newId).value.trim();
-
-    if (!oldPrefix || !newPrefix){
-      setMsg(msgId,'Enter both prefixes.','error');
-      return;
-    }
-
-    if (oldPrefix === newPrefix){
-      setMsg(msgId,'Old and new prefixes are identical.','error');
-      return;
-    }
-
-    if (!confirm('Replace ALL matching links? This cannot be undone from the admin panel.')) return;
-
-    setMsg(msgId,'Replacing...');
-    try{
-      var r = await db.rpc(rpcName,{old_prefix:oldPrefix,new_prefix:newPrefix});
-      if (r.error) throw r.error;
-      setMsg(msgId,'Updated ' + Number(r.data || 0) + ' records.','ok');
-      await loadLibrary();
-      if (state.current) await loadEpisodes();
-    } catch(err){
-      setMsg(msgId,err.message || 'Replace failed.','error');
-    }
-  }
+  async function checkPrefix(table,column,inputId,msgId){var prefix=$(inputId).value.trim();if(!prefix){setMsg(msgId,'Enter a prefix.','error');return;}setMsg(msgId,'Checking...');try{var r=await withRetry(function(){return db.from(table).select('id',{count:'exact',head:true}).like(column,prefix+'%');},'prefix check');setMsg(msgId,String(r.count||0)+' matching records.','ok');}catch(err){setMsg(msgId,err.message||'Check failed.','error');}}
+  async function replacePrefix(rpcName,oldId,newId,msgId){var oldPrefix=$(oldId).value.trim(),newPrefix=$(newId).value.trim();if(!oldPrefix||!newPrefix){setMsg(msgId,'Enter both prefixes.','error');return;}if(oldPrefix===newPrefix){setMsg(msgId,'Old and new prefixes are identical.','error');return;}if(!confirm('Replace ALL matching links? This cannot be undone from the admin panel.'))return;setMsg(msgId,'Replacing...');try{var r=await withRetry(function(){return db.rpc(rpcName,{old_prefix:oldPrefix,new_prefix:newPrefix});},'prefix replacement');setMsg(msgId,'Updated '+Number(r.data||0)+' records.','ok');await loadLibrary();if(state.current)await loadEpisodes();}catch(err){setMsg(msgId,err.message||'Replace failed.','error');}}
 
   async function downloadBackup(){
     setMsg('backupMsg','Preparing backup...');
-
     try{
-      var results = await Promise.all([
-        db.from('anime').select('*').order('id'),
-        db.from('episodes').select('*').order('id')
-      ]);
-
-      if (results[0].error) throw results[0].error;
-      if (results[1].error) throw results[1].error;
-
-      var data = {
-        format:'anipasta-full-backup-v2',
-        exported_at:new Date().toISOString(),
-        tables:{
-          anime:results[0].data || [],
-          episodes:results[1].data || []
-        }
-      };
-
-      var blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'anipasta-backup-' + new Date().toISOString().slice(0,10) + '.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(function(){ URL.revokeObjectURL(url); },1000);
-
-      setMsg('backupMsg','Downloaded ' + data.tables.anime.length + ' anime and ' + data.tables.episodes.length + ' episodes.','ok');
-    } catch(err){
-      setMsg('backupMsg',err.message || 'Backup failed.','error');
-    }
+      var animeRows=await fetchPaged(function(){return db.from('anime').select('*').order('id');},500);
+      var episodeRows=await fetchPaged(function(){return db.from('episodes').select('*').order('id');},500);
+      var data={format:'anipasta-full-backup-v2',exported_at:new Date().toISOString(),tables:{anime:animeRows,episodes:episodeRows}};
+      var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download='anipasta-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);
+      setMsg('backupMsg','Downloaded '+data.tables.anime.length+' anime and '+data.tables.episodes.length+' episodes.','ok');
+    }catch(err){setMsg('backupMsg',err.message||'Backup failed.','error');}
   }
 
   async function restoreBackup(file){
-    if (!file) return;
-
+    if(!file)return;
     try{
-      setMsg('backupMsg','Reading backup...');
-      var data = JSON.parse(await file.text());
-
-      if (!data || (data.format !== 'anipasta-full-backup-v1' && data.format !== 'anipasta-full-backup-v2')){
-        throw new Error('Invalid AniPasta backup file.');
-      }
-
-      if (!data.tables || !Array.isArray(data.tables.anime) || !Array.isArray(data.tables.episodes)){
-        throw new Error('Backup is missing anime or episode tables.');
-      }
-
-      if (!confirm(
-        'Restore ' + data.tables.anime.length + ' anime and ' +
-        data.tables.episodes.length + ' episodes? Existing matching IDs will be overwritten.'
-      )) return;
-
-      var animeRows = data.tables.anime;
-      var episodeRows = data.tables.episodes;
-
-      for (var i=0;i<animeRows.length;i+=200){
-        var ar = await db.from('anime').upsert(animeRows.slice(i,i+200),{onConflict:'id'});
-        if (ar.error) throw ar.error;
-        setMsg('backupMsg','Restored anime ' + Math.min(i+200,animeRows.length) + '/' + animeRows.length + '...');
-      }
-
-      for (var j=0;j<episodeRows.length;j+=500){
-        var er = await db.from('episodes').upsert(episodeRows.slice(j,j+500),{onConflict:'id'});
-        if (er.error) throw er.error;
-        setMsg('backupMsg','Restored episodes ' + Math.min(j+500,episodeRows.length) + '/' + episodeRows.length + '...');
-      }
-
-      await loadLibrary();
-      await loadStats();
-      setMsg('backupMsg','Backup restored successfully.','ok');
-    } catch(err){
-      setMsg('backupMsg',err.message || 'Restore failed.','error');
-    } finally {
-      $('upload').value = '';
-    }
+      setMsg('backupMsg','Reading backup...');var data=JSON.parse(await file.text());
+      if(!data||(data.format!=='anipasta-full-backup-v1'&&data.format!=='anipasta-full-backup-v2'))throw new Error('Invalid AniPasta backup file.');
+      if(!data.tables||!Array.isArray(data.tables.anime)||!Array.isArray(data.tables.episodes))throw new Error('Backup is missing anime or episode tables.');
+      if(!confirm('Restore '+data.tables.anime.length+' anime and '+data.tables.episodes.length+' episodes? Existing matching IDs will be overwritten.'))return;
+      for(var i=0;i<data.tables.anime.length;i+=200){await withRetry(function(){return db.from('anime').upsert(data.tables.anime.slice(i,i+200),{onConflict:'id'});},'anime restore');setMsg('backupMsg','Restored anime '+Math.min(i+200,data.tables.anime.length)+'/'+data.tables.anime.length+'...');}
+      for(var j=0;j<data.tables.episodes.length;j+=500){await withRetry(function(){return db.from('episodes').upsert(data.tables.episodes.slice(j,j+500),{onConflict:'id'});},'episode restore');setMsg('backupMsg','Restored episodes '+Math.min(j+500,data.tables.episodes.length)+'/'+data.tables.episodes.length+'...');}
+      await loadLibrary();await loadStats();setMsg('backupMsg','Backup restored successfully.','ok');
+    }catch(err){setMsg('backupMsg',err.message||'Restore failed.','error');}finally{$('upload').value='';}
   }
 
+  function pageSetMode(){var params=new URLSearchParams(window.location.search),id=params.get('id');if(!id)return null;state.pageMode=true;$('libraryLayout').classList.add('hidden');$('pageEditor').classList.remove('pageHidden');$('websiteLink').textContent='← LIBRARY';$('websiteLink').href='admin.html';return id;}
+  async function loadPageAnime(id){try{setMsg('pageMsg','Loading anime...');var r=await withRetry(function(){return db.from('anime').select('*').eq('id',id).single();},'page anime load');state.current=r.data;state.editingId=null;state.season=null;$('pageTitle').textContent=state.current.title||'Untitled';$('pagePoster').src=state.current.poster_url||'';$('pagePoster').alt=state.current.title||'';$('pageType').value=String(state.current.content_type||'series').toLowerCase()==='movie'?'movie':'series';syncPageTypeUI();updatePageMeta();await loadPageEpisodes();resetPageEpisodeForm();$('pageMovieUrl').value=state.current.movie_url||'';$('pageMovieDuration').value=state.current.movie_duration||'';setMsg('pageMsg','Anime loaded.','ok');}catch(err){setMsg('pageMsg',err.message||'Failed to load anime.','error');}}
+  function updatePageMeta(){var type=$('pageType').value;$('pageMeta').textContent=(state.current.is_published?'PUBLISHED':'HIDDEN')+' · '+type.toUpperCase()+' · ID '+state.current.id;$('pageToggle').textContent=state.current.is_published?'UNPUBLISH':'PUBLISH';}
+  function syncPageTypeUI(){var isMovie=$('pageType').value==='movie';$('pageMoviePanel').classList.toggle('pageHidden',!isMovie);$('pageSeriesPanel').classList.toggle('pageHidden',isMovie);$('pageEpisodeForm').classList.toggle('pageHidden',isMovie);}
+  async function changePageType(){if(!state.current)return;var next=$('pageType').value;if(!confirm('Change this anime type to '+next.toUpperCase()+'?')){$('pageType').value=String(state.current.content_type||'series').toLowerCase();syncPageTypeUI();return;}try{await withRetry(function(){return db.from('anime').update({content_type:next}).eq('id',state.current.id).select('id').maybeSingle();},'page type update');state.current.content_type=next;syncPageTypeUI();updatePageMeta();await loadLibrary();setMsg('pageMsg','Anime type changed to '+next.toUpperCase()+'.','ok');}catch(err){$('pageType').value=String(state.current.content_type||'series').toLowerCase();syncPageTypeUI();setMsg('pageMsg',err.message||'Type update failed.','error');}}
+  async function loadPageEpisodes(){if(!state.current)return;state.episodes=await fetchPaged(function(){return db.from('episodes').select('*').eq('anime_id',state.current.id).order('season_number',{ascending:true}).order('episode_number',{ascending:true});},500);var seasons=[];state.episodes.forEach(function(e){var s=Number(e.season_number)||1;if(seasons.indexOf(s)===-1)seasons.push(s);});state.season=state.season!==null&&seasons.indexOf(state.season)!==-1?state.season:(seasons[0]||null);$('pageEpisodeTotal').textContent=state.episodes.length+' total';$('pageSeasons').innerHTML=seasons.length?seasons.map(function(s){return '<button type="button" class="'+(s===state.season?'active':'')+'" data-page-season="'+s+'">SEASON '+s+'</button>';}).join(''):'<span class="muted">No seasons yet.</span>';var list=state.episodes.filter(function(e){return state.season===null||Number(e.season_number||1)===state.season;});$('pageEpisodeList').innerHTML=list.length?list.map(function(e){return '<article class="pageEpisode"><b>S'+(e.season_number||1)+' · EP '+e.episode_number+'</b><span class="url" title="'+escapeHtml(e.video_url||'')+'">'+escapeHtml(e.video_url||'No video URL')+'</span><div><button type="button" class="btn" data-page-edit="'+escapeHtml(e.id)+'">EDIT</button> <button type="button" class="btn danger" data-page-delete="'+escapeHtml(e.id)+'">DELETE</button></div></article>';}).join(''):'<div class="empty">No episodes in this season.</div>';}
+  function resetPageEpisodeForm(){state.editingId=null;$('pageSeason').value=state.season||1;$('pageEpisode').value='';$('pageVideo').value='';$('pageSaveEpisode').textContent='ADD EPISODE';$('pageCancelEpisode').classList.add('hidden');setMsg('pageEpisodeMsg','');}
+  async function savePageEpisode(){if(!state.current)return;var s=Number($('pageSeason').value),ep=Number($('pageEpisode').value),url=$('pageVideo').value.trim();if(!Number.isInteger(s)||s<1)return setMsg('pageEpisodeMsg','Season must be 1 or greater.','error');if(!Number.isInteger(ep)||ep<1)return setMsg('pageEpisodeMsg','Episode must be 1 or greater.','error');if(!url)return setMsg('pageEpisodeMsg','Video URL is required.','error');var wasEditing=!!state.editingId,button=$('pageSaveEpisode');setBusy(button,true,wasEditing?'UPDATING...':'ADDING...');try{var payload={anime_id:state.current.id,season_number:s,episode_number:ep,title:'Episode '+ep,video_url:url};await withRetry(function(){return wasEditing?db.from('episodes').update(payload).eq('id',state.editingId).select('id').maybeSingle():db.from('episodes').insert(payload).select('id').single();},'page episode save');resetPageEpisodeForm();await loadPageEpisodes();await loadStats();setMsg('pageEpisodeMsg',wasEditing?'Episode updated.':'Episode added.','ok');}catch(err){setMsg('pageEpisodeMsg',err.message||'Episode save failed.','error');}finally{setBusy(button,false);}}
+  async function deletePageEpisode(id){var x=state.episodes.find(function(e){return String(e.id)===String(id);});if(!x)return;if(!confirm('Delete S'+(x.season_number||1)+' EP '+x.episode_number+'?'))return;try{await withRetry(function(){return db.from('episodes').delete().eq('id',id);},'page episode delete');await loadPageEpisodes();await loadStats();setMsg('pageEpisodeMsg','Episode deleted.','ok');}catch(err){setMsg('pageEpisodeMsg',err.message||'Delete failed.','error');}}
+  async function editPageEpisode(id){var x=state.episodes.find(function(e){return String(e.id)===String(id);});if(!x)return;state.editingId=x.id;$('pageSeason').value=x.season_number||1;$('pageEpisode').value=x.episode_number||'';$('pageVideo').value=x.video_url||'';$('pageSaveEpisode').textContent='UPDATE EPISODE';$('pageCancelEpisode').classList.remove('hidden');$('pageEpisodeForm').scrollIntoView({behavior:'smooth',block:'start'});setMsg('pageEpisodeMsg','Editing S'+(x.season_number||1)+' EP '+x.episode_number+'.','ok');}
+  async function savePageMovie(){if(!state.current)return;var url=$('pageMovieUrl').value.trim(),duration=$('pageMovieDuration').value.trim();if(!url)return setMsg('pageMovieMsg','Movie video URL is required.','error');var button=$('pageSaveMovie');setBusy(button,true,'SAVING...');try{await withRetry(function(){return db.from('anime').update({movie_url:url,movie_duration:duration}).eq('id',state.current.id).select('id').maybeSingle();},'movie save');state.current.movie_url=url;state.current.movie_duration=duration;setMsg('pageMovieMsg','Movie details saved.','ok');await loadLibrary();}catch(err){setMsg('pageMovieMsg',err.message||'Movie save failed.','error');}finally{setBusy(button,false);}}
+  async function togglePagePublish(){if(!state.current)return;var button=$('pageToggle');setBusy(button,true,'SAVING...');try{var next=!state.current.is_published;await withRetry(function(){return db.from('anime').update({is_published:next}).eq('id',state.current.id).select('id').maybeSingle();},'page publish');state.current.is_published=next;updatePageMeta();await loadLibrary();setMsg('pageMsg',next?'Anime published.':'Anime hidden.','ok');}catch(err){setMsg('pageMsg',err.message||'Publish update failed.','error');}finally{setBusy(button,false);}}
+  async function deletePageAnime(){if(!state.current)return;if(!confirm('Delete "'+state.current.title+'" and ALL of its episodes?'))return;try{await withRetry(function(){return db.from('episodes').delete().eq('anime_id',state.current.id);},'page episode bulk delete');await withRetry(function(){return db.from('anime').delete().eq('id',state.current.id);},'page anime delete');window.location.href='admin.html';}catch(err){setMsg('pageMsg',err.message||'Anime delete failed.','error');}}
 
-  function pageSetMode(){
-    var params = new URLSearchParams(window.location.search);
-    var id = params.get('id');
-    if (!id) return null;
-    state.pageMode = true;
-    $('libraryLayout').classList.add('hidden');
-    $('pageEditor').classList.remove('pageHidden');
-    $('websiteLink').textContent = '← LIBRARY';
-    $('websiteLink').href = 'admin.html';
-    return id;
-  }
+  async function startPage(){var id=pageSetMode();if(id){await loadPageAnime(id);return;}await Promise.all([loadLibrary(),loadStats()]);}
+  async function init(){statusEl.textContent='● DATABASE ONLINE';statusEl.className='online ok';try{await startPage();}catch(err){statusEl.textContent='● DATABASE ERROR';statusEl.className='online error';setMsg('libraryMsg',err.message||'Failed to load admin.','error');setMsg('statsMsg',err.message||'Failed to load statistics.','error');}}
 
-  async function loadPageAnime(id){
-    try{
-      setMsg('pageMsg','Loading anime...');
-      var r = await db.from('anime').select('*').eq('id',id).single();
-      if (r.error) throw r.error;
-
-      state.current = r.data;
-      state.editingId = null;
-      state.season = null;
-
-      $('pageTitle').textContent = state.current.title || 'Untitled';
-      $('pagePoster').src = state.current.poster_url || '';
-      $('pagePoster').alt = state.current.title || '';
-      $('pageType').value = String(state.current.content_type || 'series').toLowerCase() === 'movie' ? 'movie' : 'series';
-      syncPageTypeUI();
-      updatePageMeta();
-      await loadPageEpisodes();
-      resetPageEpisodeForm();
-      $('pageMovieUrl').value = state.current.movie_url || '';
-      $('pageMovieDuration').value = state.current.movie_duration || '';
-      setMsg('pageMsg','Anime loaded.','ok');
-    }catch(err){
-      setMsg('pageMsg',err.message || 'Failed to load anime.','error');
-    }
-  }
-
-  function updatePageMeta(){
-    var type = $('pageType').value;
-    $('pageMeta').textContent =
-      (state.current.is_published ? 'PUBLISHED' : 'HIDDEN') +
-      ' · ' + type.toUpperCase() +
-      ' · ID ' + state.current.id;
-    $('pageToggle').textContent = state.current.is_published ? 'UNPUBLISH' : 'PUBLISH';
-  }
-
-  function syncPageTypeUI(){
-    var isMovie = $('pageType').value === 'movie';
-    $('pageMoviePanel').classList.toggle('pageHidden',!isMovie);
-    $('pageSeriesPanel').classList.toggle('pageHidden',isMovie);
-    $('pageEpisodeForm').classList.toggle('pageHidden',isMovie);
-  }
-
-  async function changePageType(){
-    if (!state.current) return;
-    var next = $('pageType').value;
-    if (!confirm('Change this anime type to ' + next.toUpperCase() + '?')) {
-      $('pageType').value = String(state.current.content_type || 'series').toLowerCase();
-      syncPageTypeUI();
-      return;
-    }
-    try{
-      var r = await db.from('anime').update({content_type:next}).eq('id',state.current.id).select('id').maybeSingle();
-      if (r.error) throw r.error;
-      state.current.content_type = next;
-      syncPageTypeUI();
-      updatePageMeta();
-      await loadLibrary();
-      setMsg('pageMsg','Anime type changed to ' + next.toUpperCase() + '.','ok');
-    }catch(err){
-      $('pageType').value = String(state.current.content_type || 'series').toLowerCase();
-      syncPageTypeUI();
-      setMsg('pageMsg',err.message || 'Type update failed.','error');
-    }
-  }
-
-  async function loadPageEpisodes(){
-    if (!state.current) return;
-    var r = await db.from('episodes')
-      .select('*')
-      .eq('anime_id',state.current.id)
-      .order('season_number',{ascending:true})
-      .order('episode_number',{ascending:true});
-    if (r.error) throw r.error;
-
-    state.episodes = r.data || [];
-    var seasons = [];
-    state.episodes.forEach(function(e){
-      var s = Number(e.season_number) || 1;
-      if (seasons.indexOf(s) === -1) seasons.push(s);
-    });
-    state.season = state.season && seasons.indexOf(state.season) !== -1 ? state.season : (seasons[0] || null);
-    $('pageEpisodeTotal').textContent = state.episodes.length + ' total';
-
-    $('pageSeasons').innerHTML = seasons.length
-      ? seasons.map(function(s){
-          return '<button type="button" class="' + (s === state.season ? 'active' : '') + '" data-page-season="' + s + '">SEASON ' + s + '</button>';
-        }).join('')
-      : '<span class="muted">No seasons yet.</span>';
-
-    var list = state.episodes.filter(function(e){
-      return state.season === null || Number(e.season_number || 1) === state.season;
-    });
-
-    $('pageEpisodeList').innerHTML = list.length
-      ? list.map(function(e){
-          return '<article class="pageEpisode">' +
-            '<b>S' + (e.season_number || 1) + ' · EP ' + e.episode_number + '</b>' +
-            '<span class="url" title="' + escapeHtml(e.video_url || '') + '">' + escapeHtml(e.video_url || 'No video URL') + '</span>' +
-            '<div><button type="button" class="btn" data-page-edit="' + escapeHtml(e.id) + '">EDIT</button> ' +
-            '<button type="button" class="btn danger" data-page-delete="' + escapeHtml(e.id) + '">DELETE</button></div>' +
-          '</article>';
-        }).join('')
-      : '<div class="empty">No episodes in this season.</div>';
-  }
-
-  function resetPageEpisodeForm(){
-    state.editingId = null;
-    $('pageSeason').value = state.season || 1;
-    $('pageEpisode').value = '';
-    $('pageVideo').value = '';
-    $('pageSaveEpisode').textContent = 'ADD EPISODE';
-    $('pageCancelEpisode').classList.add('hidden');
-    setMsg('pageEpisodeMsg','');
-  }
-
-  async function savePageEpisode(){
-    if (!state.current) return;
-    var s = Number($('pageSeason').value);
-    var ep = Number($('pageEpisode').value);
-    var url = $('pageVideo').value.trim();
-    if (!Number.isInteger(s) || s < 1) return setMsg('pageEpisodeMsg','Season must be 1 or greater.','error');
-    if (!Number.isInteger(ep) || ep < 1) return setMsg('pageEpisodeMsg','Episode must be 1 or greater.','error');
-    if (!url) return setMsg('pageEpisodeMsg','Video URL is required.','error');
-
-    var wasEditing = !!state.editingId;
-    var button = $('pageSaveEpisode');
-    setBusy(button,true,wasEditing?'UPDATING...':'ADDING...');
-    try{
-      var payload = {anime_id:state.current.id,season_number:s,episode_number:ep,title:'Episode '+ep,video_url:url};
-      var r = wasEditing
-        ? await db.from('episodes').update(payload).eq('id',state.editingId).select('id').maybeSingle()
-        : await db.from('episodes').insert(payload).select('id').single();
-      if (r.error) throw r.error;
-      resetPageEpisodeForm();
-      await loadPageEpisodes();
-      await loadStats();
-      setMsg('pageEpisodeMsg',wasEditing?'Episode updated.':'Episode added.','ok');
-    }catch(err){
-      setMsg('pageEpisodeMsg',err.message || 'Episode save failed.','error');
-    }finally{
-      setBusy(button,false);
-    }
-  }
-
-  async function deletePageEpisode(id){
-    var x = state.episodes.find(function(e){ return String(e.id) === String(id); });
-    if (!x) return;
-    if (!confirm('Delete S' + (x.season_number || 1) + ' EP ' + x.episode_number + '?')) return;
-    try{
-      var r = await db.from('episodes').delete().eq('id',id);
-      if (r.error) throw r.error;
-      await loadPageEpisodes();
-      await loadStats();
-      setMsg('pageEpisodeMsg','Episode deleted.','ok');
-    }catch(err){
-      setMsg('pageEpisodeMsg',err.message || 'Delete failed.','error');
-    }
-  }
-
-  async function editPageEpisode(id){
-    var x = state.episodes.find(function(e){ return String(e.id) === String(id); });
-    if (!x) return;
-    state.editingId = x.id;
-    $('pageSeason').value = x.season_number || 1;
-    $('pageEpisode').value = x.episode_number || '';
-    $('pageVideo').value = x.video_url || '';
-    $('pageSaveEpisode').textContent = 'UPDATE EPISODE';
-    $('pageCancelEpisode').classList.remove('hidden');
-    $('pageEpisodeForm').scrollIntoView({behavior:'smooth',block:'start'});
-    setMsg('pageEpisodeMsg','Editing S' + (x.season_number || 1) + ' EP ' + x.episode_number + '.','ok');
-  }
-
-  async function savePageMovie(){
-    if (!state.current) return;
-    var url = $('pageMovieUrl').value.trim();
-    var duration = $('pageMovieDuration').value.trim();
-    if (!url) return setMsg('pageMovieMsg','Movie video URL is required.','error');
-    var button = $('pageSaveMovie');
-    setBusy(button,true,'SAVING...');
-    try{
-      var r = await db.from('anime').update({movie_url:url,movie_duration:duration}).eq('id',state.current.id).select('id').maybeSingle();
-      if (r.error) throw r.error;
-      state.current.movie_url = url;
-      state.current.movie_duration = duration;
-      setMsg('pageMovieMsg','Movie details saved.','ok');
-      await loadLibrary();
-    }catch(err){
-      setMsg('pageMovieMsg',err.message || 'Movie save failed.','error');
-    }finally{
-      setBusy(button,false);
-    }
-  }
-
-  async function togglePagePublish(){
-    if (!state.current) return;
-    var button = $('pageToggle');
-    setBusy(button,true,'SAVING...');
-    try{
-      var next = !state.current.is_published;
-      var r = await db.from('anime').update({is_published:next}).eq('id',state.current.id).select('id').maybeSingle();
-      if (r.error) throw r.error;
-      state.current.is_published = next;
-      updatePageMeta();
-      await loadLibrary();
-      setMsg('pageMsg',next?'Anime published.':'Anime hidden.','ok');
-    }catch(err){
-      setMsg('pageMsg',err.message || 'Publish update failed.','error');
-    }finally{
-      setBusy(button,false);
-    }
-  }
-
-  async function deletePageAnime(){
-    if (!state.current) return;
-    if (!confirm('Delete "' + state.current.title + '" and ALL of its episodes?')) return;
-    try{
-      var er = await db.from('episodes').delete().eq('anime_id',state.current.id);
-      if (er.error) throw er.error;
-      var ar = await db.from('anime').delete().eq('id',state.current.id);
-      if (ar.error) throw ar.error;
-      window.location.href = 'admin.html';
-    }catch(err){
-      setMsg('pageMsg',err.message || 'Anime delete failed.','error');
-    }
-  }
-
-  async function startPage(){
-    var id = pageSetMode();
-    if (id) await loadPageAnime(id);
-    else {
-      try{
-        await Promise.all([loadLibrary(),loadStats()]);
-      }catch(err){
-        setMsg('libraryMsg',err.message || 'Failed to load admin.','error');
-        setMsg('statsMsg',err.message || 'Failed to load statistics.','error');
-      }
-    }
-  }
-
-  async function init(){
-    statusEl.textContent = '● DATABASE ONLINE';
-    statusEl.className = 'online ok';
-    await startPage();
-  }
-
-  $('librarySearch').addEventListener('input',renderLibrary);
-  $('librarySearch').addEventListener('keydown',function(e){
-    if (e.key === 'Enter') renderLibrary();
-  });
-
-  $('libraryFilters').addEventListener('click',function(e){
-    var b=e.target.closest('[data-filter]');
-    if(!b)return;
-    state.libraryFilter=b.dataset.filter;
-    document.querySelectorAll('#libraryFilters .filterbtn').forEach(function(x){x.classList.toggle('active',x===b);});
-    renderLibrary();
-  });
-
-  $('refreshLibrary').addEventListener('click',async function(){
-    var b=this;
-    setBusy(b,true,'...');
-    try{ await loadLibrary(); }catch(err){ setMsg('libraryMsg',err.message || 'Refresh failed.','error'); }
-    finally{ setBusy(b,false); }
-  });
-
-  $('library').addEventListener('click',async function(e){
-    var b=e.target.closest('[data-id]');
-    if (!b) return;
-    try{
-      window.location.href = 'admin.html?id=' + encodeURIComponent(b.dataset.id);
-    }catch(err){
-      setMsg('editorMsg',err.message || 'Failed to open anime.','error');
-    }
-  });
-
-  $('aniSearchBtn').addEventListener('click',searchAni);
-  $('aniSearch').addEventListener('keydown',function(e){
-    if (e.key === 'Enter') searchAni();
-  });
-
-  $('aniResults').addEventListener('click',async function(e){
-    var b=e.target.closest('[data-ani-index]');
-    if (!b) return;
-
-    var idx=Number(b.dataset.aniIndex);
-    try{
-      setBusy(b,true,'IMPORTING...');
-      await importAni(idx);
-    }catch(err){
-      setMsg('aniMsg',err.message || 'Import failed.','error');
-    }finally{
-      setBusy(b,false);
-    }
-  });
-
-  $('refreshStats').addEventListener('click',async function(){
-    var b=this;
-    setBusy(b,true,'REFRESHING...');
-    try{ await loadStats(); }catch(err){ setMsg('statsMsg',err.message || 'Stats refresh failed.','error'); }
-    finally{ setBusy(b,false); }
-  });
-
-  $('checkEpisode').addEventListener('click',function(){
-    checkPrefix('episodes','video_url','episodeOld','episodeMsg');
-  });
-
-  $('replaceEpisode').addEventListener('click',function(){
-    replacePrefix('replace_episode_link_prefix','episodeOld','episodeNew','episodeMsg');
-  });
-
-  $('checkMovie').addEventListener('click',function(){
-    checkPrefix('anime','movie_url','movieOld','movieMsg');
-  });
-
-  $('replaceMovie').addEventListener('click',function(){
-    replacePrefix('replace_movie_link_prefix','movieOld','movieNew','movieMsg');
-  });
-
-  $('seasons').addEventListener('click',async function(e){
-    var b=e.target.closest('[data-season]');
-    if (!b) return;
-    state.season=Number(b.dataset.season);
-    try{ await loadEpisodes(); }catch(err){ setMsg('episodeFormMsg',err.message || 'Season load failed.','error'); }
-  });
-
-  $('refreshEpisodes').addEventListener('click',async function(){
-    try{ await loadEpisodes(); }catch(err){ setMsg('episodeFormMsg',err.message || 'Episode refresh failed.','error'); }
-  });
-
-  $('episodeList').addEventListener('click',async function(e){
-    var edit=e.target.closest('[data-edit]');
-    var del=e.target.closest('[data-delete]');
-
-    try{
-      if (edit) await editEpisode(edit.dataset.edit);
-      if (del) await deleteEpisode(del.dataset.delete);
-    }catch(err){
-      setMsg('episodeFormMsg',err.message || 'Episode action failed.','error');
-    }
-  });
-
-  $('save').addEventListener('click',saveEpisode);
-  $('cancel').addEventListener('click',resetEpisodeForm);
-  $('toggle').addEventListener('click',togglePublish);
-  $('deleteAnime').addEventListener('click',deleteAnime);
-  $('download').addEventListener('click',downloadBackup);
-  $('upload').addEventListener('change',function(e){ restoreBackup(e.target.files && e.target.files[0]); });
-
-  $('pageType').addEventListener('change',changePageType);
-  $('pageSaveMovie').addEventListener('click',savePageMovie);
-  $('pageToggle').addEventListener('click',togglePagePublish);
-  $('pageDelete').addEventListener('click',deletePageAnime);
-  $('pageRefreshEpisodes').addEventListener('click',async function(){try{await loadPageEpisodes();}catch(err){setMsg('pageEpisodeMsg',err.message||'Refresh failed.','error');}});
-  $('pageSaveEpisode').addEventListener('click',savePageEpisode);
-  $('pageCancelEpisode').addEventListener('click',resetPageEpisodeForm);
-  $('pageSeasons').addEventListener('click',async function(e){
-    var b=e.target.closest('[data-page-season]');
-    if(!b)return;
-    state.season=Number(b.dataset.pageSeason);
-    try{await loadPageEpisodes();}catch(err){setMsg('pageEpisodeMsg',err.message||'Season load failed.','error');}
-  });
-  $('pageEpisodeList').addEventListener('click',async function(e){
-    var ed=e.target.closest('[data-page-edit]');
-    var del=e.target.closest('[data-page-delete]');
-    try{
-      if(ed)await editPageEpisode(ed.dataset.pageEdit);
-      if(del)await deletePageEpisode(del.dataset.pageDelete);
-    }catch(err){setMsg('pageEpisodeMsg',err.message||'Episode action failed.','error');}
-  });
-
-  window.addEventListener('error',function(e){
-    setMsg('editorMsg',e.message || 'Unexpected JavaScript error.','error');
-  });
-
-  window.addEventListener('unhandledrejection',function(e){
-    var reason=e.reason && e.reason.message ? e.reason.message : 'Unexpected request error.';
-    setMsg('editorMsg',reason,'error');
-  });
-
+  $('librarySearch').addEventListener('input',renderLibrary);$('librarySearch').addEventListener('keydown',function(e){if(e.key==='Enter')renderLibrary();});
+  $('libraryFilters').addEventListener('click',function(e){var b=e.target.closest('[data-filter]');if(!b)return;state.libraryFilter=b.dataset.filter;document.querySelectorAll('#libraryFilters .filterbtn').forEach(function(x){x.classList.toggle('active',x===b);});renderLibrary();});
+  $('refreshLibrary').addEventListener('click',async function(){var b=this;setBusy(b,true,'...');try{await loadLibrary();}catch(err){}finally{setBusy(b,false);}});
+  $('library').addEventListener('click',function(e){var b=e.target.closest('[data-id]');if(!b)return;window.location.href='admin.html?id='+encodeURIComponent(b.dataset.id);});
+  $('aniSearchBtn').addEventListener('click',searchAni);$('aniSearch').addEventListener('keydown',function(e){if(e.key==='Enter')searchAni();});
+  $('aniResults').addEventListener('click',async function(e){var b=e.target.closest('[data-ani-index]');if(!b)return;try{setBusy(b,true,'IMPORTING...');await importAni(Number(b.dataset.aniIndex));}catch(err){setMsg('aniMsg',err.message||'Import failed.','error');}finally{setBusy(b,false);}});
+  $('refreshStats').addEventListener('click',async function(){var b=this;setBusy(b,true,'REFRESHING...');try{await loadStats();}catch(err){}finally{setBusy(b,false);}});
+  $('checkEpisode').addEventListener('click',function(){checkPrefix('episodes','video_url','episodeOld','episodeMsg');});$('replaceEpisode').addEventListener('click',function(){replacePrefix('replace_episode_link_prefix','episodeOld','episodeNew','episodeMsg');});
+  $('checkMovie').addEventListener('click',function(){checkPrefix('anime','movie_url','movieOld','movieMsg');});$('replaceMovie').addEventListener('click',function(){replacePrefix('replace_movie_link_prefix','movieOld','movieNew','movieMsg');});
+  $('seasons').addEventListener('click',async function(e){var b=e.target.closest('[data-season]');if(!b)return;state.season=Number(b.dataset.season);try{await loadEpisodes();}catch(err){setMsg('episodeFormMsg',err.message||'Season load failed.','error');}});
+  $('refreshEpisodes').addEventListener('click',async function(){try{await loadEpisodes();}catch(err){setMsg('episodeFormMsg',err.message||'Episode refresh failed.','error');}});
+  $('episodeList').addEventListener('click',async function(e){var edit=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');try{if(edit)await editEpisode(edit.dataset.edit);if(del)await deleteEpisode(del.dataset.delete);}catch(err){setMsg('episodeFormMsg',err.message||'Episode action failed.','error');}});
+  $('save').addEventListener('click',saveEpisode);$('cancel').addEventListener('click',resetEpisodeForm);$('toggle').addEventListener('click',togglePublish);$('deleteAnime').addEventListener('click',deleteAnime);
+  $('download').addEventListener('click',downloadBackup);$('upload').addEventListener('change',function(e){restoreBackup(e.target.files&&e.target.files[0]);});
+  $('pageType').addEventListener('change',changePageType);$('pageSaveMovie').addEventListener('click',savePageMovie);$('pageToggle').addEventListener('click',togglePagePublish);$('pageDelete').addEventListener('click',deletePageAnime);
+  $('pageRefreshEpisodes').addEventListener('click',async function(){try{await loadPageEpisodes();}catch(err){setMsg('pageEpisodeMsg',err.message||'Refresh failed.','error');}});$('pageSaveEpisode').addEventListener('click',savePageEpisode);$('pageCancelEpisode').addEventListener('click',resetPageEpisodeForm);
+  $('pageSeasons').addEventListener('click',async function(e){var b=e.target.closest('[data-page-season]');if(!b)return;state.season=Number(b.dataset.pageSeason);try{await loadPageEpisodes();}catch(err){setMsg('pageEpisodeMsg',err.message||'Season load failed.','error');}});
+  $('pageEpisodeList').addEventListener('click',async function(e){var ed=e.target.closest('[data-page-edit]'),del=e.target.closest('[data-page-delete]');try{if(ed)await editPageEpisode(ed.dataset.pageEdit);if(del)await deletePageEpisode(del.dataset.pageDelete);}catch(err){setMsg('pageEpisodeMsg',err.message||'Episode action failed.','error');}});
+  window.addEventListener('error',function(e){setMsg('editorMsg',e.message||'Unexpected JavaScript error.','error');});window.addEventListener('unhandledrejection',function(e){var reason=e.reason&&e.reason.message?e.reason.message:'Unexpected request error.';setMsg('editorMsg',reason,'error');});
   init();
 })();
 </script>
