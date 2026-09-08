@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AniPasta Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:     #060911;
+  --panel:  #0c1118;
+  --panel2: #101620;
+  --border: #1a2840;
+  --bh:     #243652;
+  --txt:    #c4d8ee;
+  --muted:  #4e6a85;
+  --green:  #4ade80;
+  --cyan:   #38bdf8;
+  --red:    #f87171;
+  --yellow: #fbbf24;
+  --purple: #a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg);color:var(--txt);font:13px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{background-image:linear-gradient(rgba(56,189,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.025) 1px,transparent 1px);background-size:44px 44px}
+button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+
+/* Layout */
+.shell{max-width:1380px;margin:0 auto;padding:18px 14px}
+
+/* Top bar */
+.topbar{display:flex;align-items:center;gap:10px;padding:11px 16px;border:1px solid var(--border);background:var(--panel);border-radius:8px;margin-bottom:14px;box-shadow:0 6px 32px rgba(0,0,0,.5)}
+.brand{font-family:'Courier New',monospace;font-weight:900;font-size:14px;letter-spacing:2.5px;color:var(--green);line-height:1.1}
+.brand small{display:block;font-size:9px;color:var(--muted);font-weight:400;letter-spacing:1px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:.3s}
+.dot.ok{background:var(--green);box-shadow:0 0 7px var(--green)}
+.dot.err{background:var(--red)}
+.dot-label{font-size:11px;color:var(--muted)}
+.ml{margin-left:auto}
+
+/* Global bar */
+.gbar{padding:9px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(6,9,17,.8);font-size:11px;color:var(--muted);margin-bottom:14px;font-family:'Courier New',monospace;transition:.25s}
+.gbar.ok{border-color:rgba(74,222,128,.3);color:var(--green)}
+.gbar.error{border-color:rgba(248,113,113,.3);color:var(--red)}
+
+/* Dashboard */
+.dash{display:grid;grid-template-columns:290px 1fr;gap:14px}
+
+/* Panel */
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:15px;margin-bottom:12px}
+.panel:last-child{margin-bottom:0}
+.ptitle{font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:var(--cyan);font-family:'Courier New',monospace;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}
+.badge{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0;font-family:inherit}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);background:var(--panel2);color:var(--txt);padding:6px 11px;border-radius:5px;font-size:12px;font-weight:600;transition:.14s;white-space:nowrap}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-1px);box-shadow:0 2px 10px rgba(56,189,248,.1)}
+.btn.sm{padding:4px 8px;font-size:11px}
+.primary{border-color:rgba(74,222,128,.35);color:var(--green);background:rgba(74,222,128,.07)}
+.primary:hover{border-color:var(--green)!important;color:var(--green)!important;box-shadow:0 2px 10px rgba(74,222,128,.15)!important}
+.danger{border-color:rgba(248,113,113,.3);color:var(--red);background:rgba(248,113,113,.06)}
+.danger:hover{border-color:var(--red)!important;color:var(--red)!important;box-shadow:0 2px 10px rgba(248,113,113,.15)!important}
+.warn{border-color:rgba(251,191,36,.3);color:var(--yellow);background:rgba(251,191,36,.06)}
+.warn:hover{border-color:var(--yellow)!important;color:var(--yellow)!important}
+
+/* Input */
+.input{width:100%;padding:8px 10px;border:1px solid var(--border);background:rgba(0,0,0,.35);color:var(--txt);border-radius:5px;outline:none;transition:.14s}
+.input:focus{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 2px rgba(56,189,248,.07)}
+.input::placeholder{color:var(--muted)}
+
+/* Search row */
+.srow{display:flex;gap:6px;margin-bottom:10px}
+.srow .input{flex:1;min-width:0}
+
+/* Library list */
+.liblist{display:flex;flex-direction:column;gap:4px;max-height:540px;overflow-y:auto;padding-right:2px}
+.liblist::-webkit-scrollbar{width:3px}
+.liblist::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+.libitem{display:flex;align-items:center;gap:9px;text-align:left;width:100%;background:rgba(0,0,0,.2);border:1px solid transparent;border-radius:5px;padding:7px;color:var(--txt);transition:.12s}
+.libitem:hover,.libitem.active{border-color:var(--cyan);background:rgba(56,189,248,.07)}
+.libitem img{width:28px;height:40px;object-fit:cover;border-radius:3px;background:var(--panel2);flex-shrink:0}
+.libitem-info{min-width:0;flex:1}
+.libitem-info strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px}
+.libitem-info small{color:var(--muted);font-size:10px}
+
+/* Tags */
+.tag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.5px;font-family:'Courier New',monospace;margin-right:3px}
+.tag.pub{background:rgba(74,222,128,.13);color:var(--green)}
+.tag.hid{background:rgba(78,106,133,.15);color:var(--muted)}
+.tag.movie{background:rgba(167,139,250,.13);color:var(--purple)}
+.tag.series{background:rgba(56,189,248,.1);color:var(--cyan)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:11px}
+.stat{text-align:center;padding:12px 6px;background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:6px}
+.stat strong{display:block;font-size:22px;font-weight:900;color:var(--green);font-family:'Courier New',monospace}
+.stat small{font-size:9px;color:var(--muted);letter-spacing:.5px}
+
+/* Empty */
+.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:5px;font-size:11px}
+
+/* Message */
+.msg{font-size:11px;min-height:15px;color:var(--muted);margin-top:7px;font-family:'Courier New',monospace}
+.msg.ok{color:var(--green)}.msg.error{color:var(--red)}
+
+/* AniList results */
+.anilist{display:flex;flex-direction:column;gap:4px;margin-top:9px;max-height:320px;overflow-y:auto}
+.anilist::-webkit-scrollbar{width:3px}
+.anilist::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* Drop zone */
+.drop{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px dashed var(--border);border-radius:5px;color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;transition:.14s}
+.drop:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* Tools */
+.tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+
+/* ── EDITOR ── */
+.edgrid{display:grid;grid-template-columns:1fr 330px;gap:14px;align-items:start}
+.ehead{display:flex;gap:13px;align-items:flex-start;margin-bottom:13px}
+.poster{width:100px;height:148px;object-fit:cover;border-radius:6px;border:1px solid var(--border);background:var(--panel2);flex-shrink:0}
+.atitle{font-size:24px;font-weight:900;color:var(--green);font-family:'Courier New',monospace;line-height:1.2;margin-bottom:5px}
+.ameta{font-size:11px;color:var(--muted);margin-bottom:9px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+
+/* Season tabs */
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px}
+.stab{padding:4px 10px;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:4px;font-size:11px;font-weight:600;transition:.12s}
+.stab.active,.stab:hover{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.08)}
+
+/* Episode item */
+.epitem{display:grid;grid-template-columns:86px 1fr auto;gap:9px;align-items:center;padding:8px 10px;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:5px;margin-bottom:5px}
+.epnum{color:var(--green);font-weight:700;font-size:11px;font-family:'Courier New',monospace}
+.epurl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:11px;font-family:'Courier New',monospace}
+.epact{display:flex;gap:4px}
+
+/* Form */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px}
+.flabel{font-size:10px;color:var(--muted);letter-spacing:.5px;margin-bottom:4px;font-family:'Courier New',monospace}
+
+/* Download links */
+.dlblock{border:1px solid var(--border);border-radius:6px;padding:11px;background:rgba(0,0,0,.18);margin-bottom:7px}
+.dlblock-title{font-size:9.5px;font-weight:700;color:var(--cyan);font-family:'Courier New',monospace;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+.dlrow{display:grid;grid-template-columns:52px 1fr auto;gap:6px;align-items:center;margin-bottom:6px}
+.dlrow:last-child{margin-bottom:0}
+.qlabel{font-size:10px;font-weight:700;color:var(--green);font-family:'Courier New',monospace}
+.sidenote{padding:7px 10px;border:1px dashed var(--border);border-radius:4px;color:var(--muted);font-size:10px;margin-bottom:9px}
+
+/* Responsive */
+@media(max-width:1060px){.edgrid{grid-template-columns:1fr}}
+@media(max-width:860px){.dash{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .shell{padding:10px}
+  .topbar{flex-wrap:wrap}
+  .frow{grid-template-columns:1fr}
+  .epitem{grid-template-columns:70px 1fr}
+  .epact{grid-column:1/-1}
+  .dlrow{grid-template-columns:46px 1fr}
+  .dlrow .btn{grid-column:1/-1;justify-content:center}
+  .ehead{flex-direction:column}
+  .poster{width:88px;height:128px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- Topbar -->
+<header class="topbar">
+  <div class="brand">ANIPASTA<small>ADMIN CONSOLE</small></div>
+  <div style="display:flex;align-items:center;gap:6px;margin-left:6px">
+    <div id="statusDot" class="dot"></div>
+    <span id="statusLabel" class="dot-label">Connecting…</span>
+  </div>
+  <div class="ml" style="display:flex;gap:7px">
+    <button id="changeKey" type="button" class="btn">🔑 Change key</button>
+    <a href="https://anipasta.top" target="_blank" rel="noopener" class="btn">↗ Website</a>
+  </div>
+</header>
+
+<!-- Global message -->
+<div id="globalMsg" class="gbar">Starting admin console…</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="dash">
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="panel">
+      <div class="ptitle">LIBRARY <span id="count" class="badge">0 items</span></div>
+      <div class="srow">
+        <input id="librarySearch" class="input" placeholder="Filter…" autocomplete="off">
+        <button id="refreshLibrary" type="button" class="btn" title="Refresh from database">↻</button>
+      </div>
+      <div id="library" class="liblist">
+        <div class="empty">Connecting to database…</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ptitle">ANILIST IMPORT</div>
+      <div class="srow">
+        <input id="aniSearch" class="input" placeholder="Search AniList…" autocomplete="off">
+        <button id="aniSearchBtn" type="button" class="btn primary">Search</button>
+      </div>
+      <div id="aniMsg" class="msg"></div>
+      <div id="aniResults" class="anilist"></div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <div class="panel">
+      <div class="ptitle">DATABASE STATISTICS</div>
+      <div class="stats">
+        <div class="stat"><strong id="statSeries">—</strong><small>SERIES</small></div>
+        <div class="stat"><strong id="statEpisodes">—</strong><small>EPISODES</small></div>
+        <div class="stat"><strong id="statMovies">—</strong><small>MOVIES</small></div>
+      </div>
+      <button id="refreshStats" type="button" class="btn sm">↻ Refresh</button>
+      <div id="statsMsg" class="msg"></div>
+    </div>
+
+    <div class="panel">
+      <div class="ptitle">BACKUP & RESTORE</div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:10px">All anime and episode rows as a single JSON file.</p>
+      <div class="tools">
+        <button id="download" type="button" class="btn primary">⬇ Download backup</button>
+        <label class="drop">⬆ Restore from backup<input id="upload" type="file" accept="application/json" hidden></label>
+      </div>
+      <div id="backupMsg" class="msg"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Editor -->
+<section id="editor" class="hidden">
+  <div style="margin-bottom:13px">
+    <button id="backToLibrary" type="button" class="btn">← Back to library</button>
+  </div>
+  <div class="edgrid">
+
+    <!-- Left: info + episodes -->
+    <div>
+      <div class="panel">
+        <div class="ehead">
+          <img id="poster" class="poster" alt="">
+          <div style="min-width:0;flex:1">
+            <div id="animeTitle" class="atitle"></div>
+            <div id="animeMeta" class="ameta"></div>
+            <div class="tools">
+              <button id="toggle" type="button" class="btn warn">Toggle publish</button>
+              <button id="deleteAnime" type="button" class="btn danger">Delete anime</button>
+            </div>
+            <div id="editorMsg" class="msg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="episodeSection" class="panel">
+        <div class="ptitle">SEASONS & EPISODES <span id="episodeTotal" class="badge"></span></div>
+        <div id="seasons" class="stabs"></div>
+        <div id="episodeList"><div class="empty">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- Right: form + downloads -->
+    <div>
+      <div id="episodeFormSection" class="panel">
+        <div class="ptitle">ADD / EDIT EPISODE</div>
+        <div class="frow">
+          <div>
+            <div class="flabel">SEASON</div>
+            <input id="season" class="input" type="number" min="1" value="1">
+          </div>
+          <div>
+            <div class="flabel">EPISODE</div>
+            <input id="episode" class="input" type="number" min="1">
+          </div>
+        </div>
+        <div class="flabel">VIDEO URL</div>
+        <input id="video" class="input" placeholder="https://…">
+        <div class="tools">
+          <button id="save" type="button" class="btn primary">Add episode</button>
+          <button id="cancel" type="button" class="btn hidden">Cancel</button>
+        </div>
+        <div id="episodeFormMsg" class="msg"></div>
+      </div>
+
+      <div class="panel">
+        <div class="ptitle">DOWNLOAD LINKS <span id="downloadMode" class="badge"></span></div>
+        <div id="downloadLinks" style="margin-top:4px"></div>
+        <div id="downloadMsg" class="msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /shell -->
+
+<script>
+(function(){
+'use strict';
+
+const SUPABASE_URL='https://ctcuocprqbbjkiptjerm.supabase.co';
+const KEY_NAME='anipasta_admin_local_key';
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+
+let db=null,library=[],current=null,episodes=[],activeSeason=null,editingId=null,aniResults=[];
+
+// ── Messages ──────────────────────────────────────────────
+function setMsg(id,text,type=''){const el=$(id);if(el){el.textContent=text;el.className='msg '+type}}
+
+function setGlobal(text,type=''){
+  const bar=$('globalMsg'),dot=$('statusDot'),lbl=$('statusLabel');
+  bar.textContent=text;bar.className='gbar '+type;
+  if(type==='ok'){dot.className='dot ok';lbl.textContent='Online'}
+  else if(type==='error'){dot.className='dot err';lbl.textContent='Error'}
+  else{dot.className='dot';lbl.textContent='Connecting…'}
+}
+
+// ── Auth / DB ─────────────────────────────────────────────
+function askKey(force){
+  if(force)localStorage.removeItem(KEY_NAME);
+  let k=localStorage.getItem(KEY_NAME);
+  if(!k){k=prompt('Enter your Supabase service_role key:');if(k&&k.trim())localStorage.setItem(KEY_NAME,k.trim())}
+  return k?k.trim():'';
+}
+
+function createDb(force){
+  const k=askKey(force);
+  if(!k)return false;
+  if(!window.supabase||typeof window.supabase.createClient!=='function'){setGlobal('Supabase failed to load.','error');return false}
+  db=window.supabase.createClient(SUPABASE_URL,k,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+  return true;
+}
+
+async function runQuery(p,label){const r=await p;if(r.error)throw new Error(label+': '+r.error.message+(r.error.details?' — '+r.error.details:''));return r}
+
+// ── Library ───────────────────────────────────────────────
+async function loadLibrary(){
+  try{
+    const r=await runQuery(db.from('anime').select('id,title,poster_url,is_published,content_type').order('title'),'Library load failed');
+    library=r.data||[];
+    $('count').textContent=library.length+' items';
+    renderLibrary();
+    setGlobal('Connected · '+library.length+' anime loaded.','ok');
+    await loadStats();
+    return true;
+  }catch(err){
+    $('library').innerHTML='<div class="empty">'+esc(err.message)+'</div>';
+    setGlobal(err.message,'error');
+    return false;
+  }
+}
+
+function renderLibrary(){
+  const q=$('librarySearch').value.trim().toLowerCase();
+  const list=q?library.filter(a=>String(a.title||'').toLowerCase().includes(q)):library;
+  $('count').textContent=library.length+' items';
+  if(!list.length){$('library').innerHTML='<div class="empty">No matching anime.</div>';return}
+  $('library').innerHTML=list.map(a=>{
+    const pub=a.is_published?'<span class="tag pub">PUB</span>':'<span class="tag hid">HID</span>';
+    const type=a.content_type==='movie'?'<span class="tag movie">MOVIE</span>':'<span class="tag series">SERIES</span>';
+    return `<button type="button" class="libitem" data-id="${esc(a.id)}">
+      <img src="${esc(a.poster_url||'')}" alt="" loading="lazy">
+      <div class="libitem-info">
+        <strong>${esc(a.title||'Untitled')}</strong>
+        <div style="margin-top:3px">${pub}${type}</div>
+      </div>
+    </button>`;
+  }).join('');
+}
+
+// ── Navigation ────────────────────────────────────────────
+function showDashboard(){
+  current=null;episodes=[];editingId=null;
+  $('editor').classList.add('hidden');
+  $('dashboard').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setGlobal('Online · Library ready.','ok');
+}
+
+function isMovie(){return!!current&&(String(current.content_type||'').toLowerCase()==='movie'||String(current.type||'').toLowerCase()==='movie')}
+
+// ── Open Anime ────────────────────────────────────────────
+async function openAnime(id){
+  if(!id||!db)return;
+  setGlobal('Opening…','');
+  try{
+    const r=await runQuery(db.from('anime').select('*').eq('id',id).single(),'Anime load failed');
+    current=r.data;
+    if(!current)throw new Error('Anime not found.');
+    $('dashboard').classList.add('hidden');
+    $('editor').classList.remove('hidden');
+    $('animeTitle').textContent=current.title||'';
+    $('poster').src=current.poster_url||'';
+    renderAnimeMeta();
+    $('toggle').textContent=current.is_published?'Unpublish':'Publish';
+    $('episodeSection').classList.toggle('hidden',isMovie());
+    $('episodeFormSection').classList.toggle('hidden',isMovie());
+    $('downloadMode').textContent=isMovie()?'Movie':'Per season';
+    activeSeason=null;
+    resetEpisodeForm();
+    renderDownloadLinks();
+    if(!isMovie())await loadEpisodes();
+    window.scrollTo({top:0,behavior:'smooth'});
+    setGlobal('Online · '+(current.title||'Anime')+' opened.','ok');
+  }catch(err){setMsg('editorMsg',err.message,'error');setGlobal(err.message,'error')}
+}
+
+function renderAnimeMeta(){
+  const pub=current.is_published?'<span class="tag pub">Published</span>':'<span class="tag hid">Hidden</span>';
+  const type=isMovie()?'<span class="tag movie">Movie</span>':'<span class="tag series">Series</span>';
+  $('animeMeta').innerHTML=pub+type+`<span style="color:var(--muted);font-size:10px">ID ${esc(current.id)}</span>`;
+}
+
+// ── Episodes ──────────────────────────────────────────────
+async function loadEpisodes(){
+  if(!current||isMovie())return;
+  try{
+    const r=await runQuery(db.from('episodes').select('*').eq('anime_id',current.id).order('season_number').order('episode_number'),'Episodes load failed');
+    episodes=r.data||[];
+    const seasons=[...new Set(episodes.map(e=>Number(e.season_number)||1))].sort((a,b)=>a-b);
+    activeSeason=activeSeason&&seasons.includes(activeSeason)?activeSeason:(seasons[0]??null);
+    $('episodeTotal').textContent=episodes.length+' total';
+    $('seasons').innerHTML=seasons.length
+      ?seasons.map(s=>`<button type="button" class="stab${s===activeSeason?' active':''}" data-season="${s}">S${s}</button>`).join('')
+      :'<div class="empty" style="width:100%">No seasons yet.</div>';
+    renderEpisodeList();
+  }catch(err){$('episodeList').innerHTML='<div class="empty">'+esc(err.message)+'</div>';setMsg('episodeFormMsg',err.message,'error')}
+}
+
+function renderEpisodeList(){
+  const list=episodes.filter(e=>activeSeason===null||Number(e.season_number||1)===activeSeason);
+  $('episodeList').innerHTML=list.length
+    ?list.map(e=>`<article class="epitem">
+        <span class="epnum">S${esc(e.season_number||1)} · E${esc(e.episode_number)}</span>
+        <span class="epurl" title="${esc(e.video_url||'')}">${esc(e.video_url||'No URL')}</span>
+        <div class="epact">
+          <button type="button" class="btn sm" data-edit="${esc(e.id)}">Edit</button>
+          <button type="button" class="btn danger sm" data-delete="${esc(e.id)}">Del</button>
+        </div>
+      </article>`).join('')
+    :'<div class="empty">No episodes in this season.</div>';
+}
+
+function resetEpisodeForm(){
+  editingId=null;
+  if($('season'))$('season').value=activeSeason||1;
+  if($('episode'))$('episode').value='';
+  if($('video'))$('video').value='';
+  if($('save'))$('save').textContent='Add episode';
+  if($('cancel'))$('cancel').classList.add('hidden');
+  setMsg('episodeFormMsg','');
+}
+
+async function saveEpisode(){
+  if(!current)return setMsg('episodeFormMsg','Open an anime first.','error');
+  const sn=Number($('season').value),en=Number($('episode').value),url=$('video').value.trim();
+  if(!Number.isInteger(sn)||sn<1)return setMsg('episodeFormMsg','Enter a valid season number.','error');
+  if(!Number.isInteger(en)||en<1)return setMsg('episodeFormMsg','Enter a valid episode number.','error');
+  if(!url)return setMsg('episodeFormMsg','Video URL is required.','error');
+  const data={anime_id:current.id,season_number:sn,episode_number:en,title:'Episode '+en,video_url:url};
+  try{
+    if(editingId){
+      await runQuery(db.from('episodes').update(data).eq('id',editingId),'Episode update failed');
+      setMsg('episodeFormMsg','Episode updated.','ok');
+    }else{
+      await runQuery(db.from('episodes').insert(data),'Episode insert failed');
+      setMsg('episodeFormMsg','Episode added.','ok');
+    }
+    activeSeason=sn;editingId=null;
+    $('season').value=sn;$('episode').value='';$('video').value='';
+    $('save').textContent='Add episode';$('cancel').classList.add('hidden');
+    await loadEpisodes();await loadStats();
+  }catch(err){setMsg('episodeFormMsg',err.message,'error')}
+}
+
+function editEpisode(id){
+  const e=episodes.find(x=>String(x.id)===String(id));
+  if(!e)return setMsg('episodeFormMsg','Episode not found.','error');
+  editingId=e.id;
+  $('season').value=e.season_number||1;
+  $('episode').value=e.episode_number||'';
+  $('video').value=e.video_url||'';
+  $('save').textContent='Update episode';
+  $('cancel').classList.remove('hidden');
+  setMsg('episodeFormMsg',`Editing S${e.season_number||1} E${e.episode_number||''}…`,'ok');
+  $('episodeFormSection').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+async function deleteEpisode(id){
+  if(!confirm('Delete this episode?'))return;
+  try{await runQuery(db.from('episodes').delete().eq('id',id),'Episode delete failed');await loadEpisodes();await loadStats()}
+  catch(err){setMsg('episodeFormMsg',err.message,'error')}
+}
+
+async function togglePublish(){
+  if(!current)return;
+  try{
+    const next=!current.is_published;
+    await runQuery(db.from('anime').update({is_published:next}).eq('id',current.id),'Publish update failed');
+    current.is_published=next;
+    renderAnimeMeta();
+    $('toggle').textContent=next?'Unpublish':'Publish';
+    setMsg('editorMsg',next?'Anime published.':'Anime unpublished.','ok');
+    const idx=library.findIndex(a=>a.id===current.id);
+    if(idx!==-1){library[idx].is_published=next;renderLibrary()}
+  }catch(err){setMsg('editorMsg',err.message,'error')}
+}
+
+async function deleteAnime(){
+  if(!current||!confirm('Delete this anime and all its episodes? This cannot be undone.'))return;
+  try{
+    if(!isMovie())await runQuery(db.from('episodes').delete().eq('anime_id',current.id),'Episode delete failed');
+    await runQuery(db.from('anime').delete().eq('id',current.id),'Anime delete failed');
+    library=library.filter(a=>a.id!==current.id);
+    renderLibrary();showDashboard();await loadStats();
+  }catch(err){setMsg('editorMsg',err.message,'error')}
+}
+
+// ── Stats ─────────────────────────────────────────────────
+async function loadStats(){
+  if(!db)return;
+  try{
+    const[a,e,m]=await Promise.all([
+      db.from('anime').select('id,content_type'),
+      db.from('episodes').select('id',{count:'exact',head:true}),
+      db.from('anime').select('id').eq('content_type','movie')
+    ]);
+    if(a.error)throw new Error('Anime stats: '+a.error.message);
+    if(e.error)throw new Error('Episode stats: '+e.error.message);
+    if(m.error)throw new Error('Movie stats: '+m.error.message);
+    const movies=m.data?m.data.length:0;
+    $('statSeries').textContent=Math.max(0,(a.data||[]).length-movies);
+    $('statEpisodes').textContent=e.count||0;
+    $('statMovies').textContent=movies;
+    setMsg('statsMsg','Last updated '+new Date().toLocaleTimeString(),'ok');
+  }catch(err){setMsg('statsMsg',err.message,'error')}
+}
+
+// ── Download Links ────────────────────────────────────────
+function getMovieLinks(){const raw=current?.download_links;if(raw&&typeof raw==='object'&&(raw['480p']||raw['720p']||raw['1080p']))return raw;return{}}
+function getSeasonLinks(){const raw=current?.download_links;if(!raw||typeof raw!=='object')return{};const out={};Object.keys(raw).forEach(k=>{if(/^\d+$/.test(String(k)))out[k]=raw[k]||{}});return out}
+
+function renderDownloadLinks(){
+  const host=$('downloadLinks');
+  if(!current){host.innerHTML='<div class="empty">Open an anime to manage download links.</div>';return}
+
+  const QUALITIES=['480p','720p','1080p'];
+
+  if(isMovie()){
+    const links=getMovieLinks();
+    host.innerHTML='<div class="sidenote">Movie — no seasons. Add 480p, 720p, 1080p download URLs.</div>'
+      +QUALITIES.map(q=>`<div class="dlrow">
+        <span class="qlabel">${q}</span>
+        <input class="input" style="font-size:11px" data-movie-dl-input="${q}" value="${esc(links[q]||'')}" placeholder="${q} URL">
+        <button type="button" class="btn primary sm" data-movie-dl-save="${q}">Save</button>
+      </div>`).join('');
+    return;
+  }
+
+  const links=getSeasonLinks();
+  const seasons=Object.keys(links).sort((a,b)=>Number(a)-Number(b));
+  host.innerHTML=seasons.map(s=>{
+    const x=links[s]||{};
+    return `<div class="dlblock">
+      <div class="dlblock-title">Season ${esc(s)}
+        <button type="button" class="btn danger sm" data-dl-delete-season="${esc(s)}">Remove</button>
+      </div>
+      ${QUALITIES.map(q=>`<div class="dlrow">
+        <span class="qlabel">${q}</span>
+        <input class="input" style="font-size:11px" data-dl-input="${esc(s)}" data-dl-quality="${q}" value="${esc(x[q]||'')}" placeholder="${q} URL">
+        <button type="button" class="btn primary sm" data-dl-save="${esc(s)}" data-dl-quality="${q}">Save</button>
+      </div>`).join('')}
+    </div>`;
+  }).join('')
+  +`<div class="dlblock">
+    <div class="dlblock-title">Add new season</div>
+    <div style="margin-bottom:6px">
+      <div class="flabel">SEASON NUMBER</div>
+      <input id="newDlSeason" class="input" style="font-size:11px" type="number" min="1" placeholder="e.g. 1">
+    </div>
+    ${QUALITIES.map(q=>`<div style="margin-bottom:5px">
+      <input id="newDl${q.replace('p','')}" class="input" style="font-size:11px" placeholder="${q} download URL">
+    </div>`).join('')}
+    <button id="addDlSeason" type="button" class="btn primary" style="width:100%;justify-content:center;margin-top:3px">Add season</button>
+    <div id="downloadAddMsg" class="msg"></div>
+  </div>`
+  +(!seasons.length?'<div class="empty" style="margin-top:7px">No season download links yet.</div>':'');
+}
+
+async function saveMovieDl(quality){
+  if(!current||!isMovie())return;
+  const input=document.querySelector(`[data-movie-dl-input="${CSS.escape(quality)}"]`);
+  if(!input)return;
+  const links={...getMovieLinks(),[quality]:input.value.trim()};
+  try{await runQuery(db.from('anime').update({download_links:links}).eq('id',current.id),'Movie download save failed');current.download_links=links;setMsg('downloadMsg','Saved '+quality+'.','ok')}
+  catch(err){setMsg('downloadMsg',err.message,'error')}
+}
+
+async function saveDlQuality(season,quality){
+  if(!current||isMovie())return;
+  const input=document.querySelector(`[data-dl-input="${CSS.escape(String(season))}"][data-dl-quality="${quality}"]`);
+  if(!input)return;
+  const links={...getSeasonLinks()};
+  links[season]={...(links[season]||{}),[quality]:input.value.trim()};
+  try{await runQuery(db.from('anime').update({download_links:links}).eq('id',current.id),'Download link save failed');current.download_links=links;setMsg('downloadMsg',`S${season} ${quality} saved.`,'ok')}
+  catch(err){setMsg('downloadMsg',err.message,'error')}
+}
+
+async function saveDlSeason(){
+  if(!current||isMovie())return;
+  const s=Number($('newDlSeason').value);
+  if(!Number.isInteger(s)||s<1)return setMsg('downloadAddMsg','Enter a valid season number.','error');
+  const links={...getSeasonLinks()};
+  links[s]={'480p':($('newDl480').value||'').trim(),'720p':($('newDl720').value||'').trim(),'1080p':($('newDl1080').value||'').trim()};
+  try{
+    await runQuery(db.from('anime').update({download_links:links}).eq('id',current.id),'Season download save failed');
+    current.download_links=links;renderDownloadLinks();setMsg('downloadMsg','Season '+s+' links saved.','ok');
+  }catch(err){setMsg('downloadAddMsg',err.message,'error')}
+}
+
+async function deleteDlSeason(s){
+  if(!current||isMovie()||!confirm('Remove all download links for Season '+s+'?'))return;
+  const links={...getSeasonLinks()};delete links[s];
+  try{await runQuery(db.from('anime').update({download_links:links}).eq('id',current.id),'Download season delete failed');current.download_links=links;renderDownloadLinks();setMsg('downloadMsg','Season '+s+' links removed.','ok')}
+  catch(err){setMsg('downloadMsg',err.message,'error')}
+}
+
+// ── AniList ───────────────────────────────────────────────
+async function searchAni(){
+  const q=$('aniSearch').value.trim();
+  if(!q)return setMsg('aniMsg','Enter an anime name.','error');
+  setMsg('aniMsg','Searching AniList…');
+  try{
+    const res=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:'query($q:String!){Page(perPage:24){media(search:$q,type:ANIME){id title{english romaji} coverImage{large} format}}}',variables:{q}})});
+    if(!res.ok)throw new Error('AniList HTTP '+res.status);
+    const json=await res.json();
+    aniResults=json.data?.Page?.media||[];
+    $('aniResults').innerHTML=aniResults.length
+      ?aniResults.map((a,i)=>`<button type="button" class="libitem" data-ani="${i}">
+          <img src="${esc(a.coverImage?.large||'')}" alt="" loading="lazy">
+          <div class="libitem-info">
+            <strong>${esc(a.title?.english||a.title?.romaji||'Untitled')}</strong>
+            <small>${esc(a.format||'')} · #${a.id}</small>
+          </div>
+        </button>`).join('')
+      :'<div class="empty">No results found.</div>';
+    setMsg('aniMsg',aniResults.length+' results.','ok');
+  }catch(err){setMsg('aniMsg',err.message,'error')}
+}
+
+async function importAni(i){
+  const a=aniResults[i];if(!a)return;
+  try{
+    const title=a.title?.english||a.title?.romaji||'Untitled';
+    await runQuery(db.from('anime').insert({anilist_id:a.id,title,poster_url:a.coverImage?.large||null,is_published:true,content_type:'series'}),'AniList import failed');
+    setMsg('aniMsg','Imported: '+title,'ok');
+    await loadLibrary();
+  }catch(err){setMsg('aniMsg',err.message,'error')}
+}
+
+// ── Backup / Restore ──────────────────────────────────────
+async function backup(){
+  try{
+    const[a,e]=await Promise.all([runQuery(db.from('anime').select('*'),'Anime backup failed'),runQuery(db.from('episodes').select('*'),'Episode backup failed')]);
+    const data={format:'anipasta-full-backup-v2',created_at:new Date().toISOString(),tables:{anime:a.data||[],episodes:e.data||[]}};
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download='anipasta-backup.json';document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    setMsg('backupMsg','Downloaded '+data.tables.anime.length+' anime, '+data.tables.episodes.length+' episodes.','ok');
+  }catch(err){setMsg('backupMsg',err.message,'error')}
+}
+
+async function restore(file){
+  if(!file)return;
+  try{
+    const data=JSON.parse(await file.text());
+    if(!data.tables||!Array.isArray(data.tables.anime)||!Array.isArray(data.tables.episodes))throw new Error('Invalid AniPasta backup file.');
+    if(!confirm('Restore backup? Existing rows will be upserted.'))return;
+    for(const row of data.tables.anime)await runQuery(db.from('anime').upsert(row,{onConflict:'id'}),'Anime restore failed');
+    for(const row of data.tables.episodes)await runQuery(db.from('episodes').upsert(row,{onConflict:'id'}),'Episode restore failed');
+    setMsg('backupMsg','Backup restored successfully.','ok');
+    await loadLibrary();await loadStats();
+    if(current)await openAnime(current.id);
+  }catch(err){setMsg('backupMsg',err.message,'error')}
+}
+
+// ── Event Listeners ───────────────────────────────────────
+$('library').addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b)openAnime(b.dataset.id)});
+$('librarySearch').addEventListener('input',renderLibrary);
+$('refreshLibrary').addEventListener('click',async()=>await loadLibrary());
+$('changeKey').addEventListener('click',async()=>{if(createDb(true))await loadLibrary()});
+$('refreshStats').addEventListener('click',loadStats);
+$('backToLibrary').addEventListener('click',showDashboard);
+
+$('seasons').addEventListener('click',e=>{
+  const b=e.target.closest('[data-season]');
+  if(b){activeSeason=Number(b.dataset.season);renderEpisodeList()}
+});
+
+$('episodeList').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');
+  if(ed)editEpisode(ed.dataset.edit);
+  if(del)deleteEpisode(del.dataset.delete);
+});
+
+$('save').addEventListener('click',saveEpisode);
+$('cancel').addEventListener('click',resetEpisodeForm);
+$('toggle').addEventListener('click',togglePublish);
+$('deleteAnime').addEventListener('click',deleteAnime);
+
+$('downloadLinks').addEventListener('click',e=>{
+  const q=e.target.closest('[data-dl-save]');
+  const ds=e.target.closest('[data-dl-delete-season]');
+  const mq=e.target.closest('[data-movie-dl-save]');
+  if(q)saveDlQuality(q.dataset.dlSave,q.dataset.dlQuality);
+  else if(ds)deleteDlSeason(ds.dataset.dlDeleteSeason);
+  else if(mq)saveMovieDl(mq.dataset.movieDlSave);
+  if(e.target.id==='addDlSeason')saveDlSeason();
+});
+
+$('aniSearchBtn').addEventListener('click',searchAni);
+$('aniSearch').addEventListener('keydown',e=>{if(e.key==='Enter')searchAni()});
+$('aniResults').addEventListener('click',e=>{const b=e.target.closest('[data-ani]');if(b)importAni(Number(b.dataset.ani))});
+
+$('download').addEventListener('click',backup);
+$('upload').addEventListener('change',e=>restore(e.target.files?.[0]));
+
+window.addEventListener('error',e=>setGlobal('JS error: '+e.message,'error'));
+window.addEventListener('unhandledrejection',e=>setGlobal('Request error: '+(e.reason?.message||String(e.reason)),'error'));
+
+// ── Boot ──────────────────────────────────────────────────
+async function start(){setGlobal('Connecting to Supabase…','');if(!createDb(false))return;await loadLibrary()}
+start();
+})();
+</script>
+</body>
+</html>
