@@ -1,2 +1,2 @@
-// Admin configuration is restored from repository history.
-// Do not modify this file manually.
+// Local Admin Supabase connection.
+window.ANIPASTA_ADMIN_CONFIG = {};
