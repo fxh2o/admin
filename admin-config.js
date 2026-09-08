@@ -1,2 +1,3 @@
 // Local Admin Supabase connection.
-window.ANIPASTA_ADMIN_CONFIG = {};
+// Use the same Project URL as the public website.
+window.ANIPASTA_ADMIN_CONFIG = window.ANIPASTA_ADMIN_CONFIG || {};
